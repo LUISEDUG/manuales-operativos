@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Supervisión - SAMM Web</title>
+    <style>
+        :root {
+            --vinotinto: #a50034;
+            --negro: #212121;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--negro);
+            background-color: var(--gris-claro);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--vinotinto);
+            color: var(--blanco);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        header h1 { margin: 0 0 0.5rem 0; font-size: 1.8rem; }
+        header p { margin: 0; opacity: 0.85; font-size: 1rem; }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .step-card {
+            background: var(--blanco);
+            border-left: 6px solid var(--vinotinto);
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--vinotinto);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .step-number {
+            background: var(--negro);
+            color: var(--blanco);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .highlight { font-weight: bold; color: var(--vinotinto); }
+
+        .image-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            background: #fdfdfd;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .caption {
+            font-size: 0.82rem;
+            color: #888;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        #modal-zoom {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #modal-zoom img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid white;
+            cursor: zoom-out;
+            transform: none;
+        }
+
+        .info-box {
+            background-color: #f0f7ff;
+            border-left: 5px solid #0056b3;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--negro);
+            color: var(--blanco);
+            margin-top: 2rem;
+        }
+
+        footer p { margin: 0.3rem 0; }
+        footer small { opacity: 0.5; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div id="modal-zoom" onclick="this.style.display='none'">
+    <img id="img-ampliada" src="" alt="Zoom">
+</div>
+
+<header>
+    <h1>Guía Paso a Paso para Supervisores</h1>
+    <p>Gestión de Disponibilidad y Análisis de Equipos en SAMM Web</p>
+</header>
+
+<div class="container">
+
+    <div class="step-card">
+        <h2><span class="step-number">1</span>Ingreso y Ubicación del Panel</h2>
+        <p>Al entrar a SAMM como supervisor, ubica el panel <strong class="highlight">"Ordenes de Trabajo Sup"</strong>. Este panel muestra el conteo general de servicios pendientes y programados.</p>
+        <div class="image-container">
+            <img src="Captura de pantalla 2026-02-03 083338.png" alt="Panel de Control Principal">
+            <div class="caption">Vista general de los paneles de administración.</div>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">2</span>Filtrado por Departamento (Zona)</h2>
+        <p>En el menú desplegable de <strong class="highlight">"Departamento Solicitud"</strong>, elige el área a validar. Para este proceso, seleccionamos <strong>Instalaciones</strong>.</p>
+        <div class="image-container">
+            <img src="Captura de pantalla 2026-02-03 083356.png" alt="Selección de Departamento">
+            <div class="caption">Seleccionando el departamento de Instalaciones en el menú desplegable.</div>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">3</span>Selección del Rango de Fechas</h2>
+        <p>Define la fecha de inicio en <strong class="highlight">"Desde"</strong> y la fecha final de consulta en el campo <strong class="highlight">"A"</strong> (se recomienda consultar una semana de proyección).</p>
+        <div class="image-container">
+            <img src="Captura de pantalla 2026-02-03 083443.png" alt="Rango de fechas">
+            <div class="caption">Rango establecido: 03/02/2026 al 10/02/2026.</div>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">4</span>Consulta de Programación Diaria</h2>
+        <p>Cambia a la pestaña <strong class="highlight">"fechaVisita"</strong>. Aquí podrás ver exactamente cuántas instalaciones hay asignadas por cada día calendario.</p>
+        <div class="image-container">
+            <img src="Captura de pantalla 2026-02-03 083524.png" alt="Listado por fecha de visita">
+            <div class="caption">Desglose de servicios por fecha (Pestaña fechaVisita).</div>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">5</span>Análisis de Disponibilidad por Equipo</h2>
+        <p>Haz clic en el número de servicios de un día específico (ej. el número <strong class="highlight">32</strong>) para ver el listado detallado. Esto te permite analizar qué tipos de equipos se van a instalar.</p>
+        <div class="image-container">
+            <img src="Captura de pantalla 2026-02-03 084654.png" alt="Detalle de órdenes y equipos">
+            <div class="caption">Vista detallada: Revisión de la columna "Equipo" para análisis de carga.</div>
+        </div>
+
+        <div class="info-box">
+            <strong>Análisis estratégico:</strong> Con esto último podemos validar y darle prioridad a la toma de algunos servicios de instalaciones como las Washtower o los TV, que sabemos que debemos cumplir con una disponibilidad diaria.
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 Electro Service S.A. | Manual Operativo SAMM Web</p>
+    <small>Documento de uso interno confidencial</small>
+</footer>
+
+<script>
+    const modal = document.getElementById('modal-zoom');
+    const imgAmpliada = document.getElementById('img-ampliada');
+    const imagenes = document.querySelectorAll('img:not(#img-ampliada)');
+
+    imagenes.forEach(imagen => {
+        imagen.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            imgAmpliada.src = imagen.src;
+        });
+    });
+</script>
+
+</body>
+</html>
