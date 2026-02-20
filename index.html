@@ -478,7 +478,7 @@
             </div>
             <input type="text" id="searchInput" placeholder="Buscar por nombre, categoría o proceso…" autocomplete="off">
         </div>
-        <div class="search-stats" id="searchStats">1 manual disponible</div>
+        <div class="search-stats" id="searchStats">5 manuales disponibles</div>
     </div>
 </div>
 
@@ -504,7 +504,7 @@
              data-name="manual de cotización y pedido de repuestos"
              data-category="Repuestos"
              data-keywords="gsfs cotización repuestos pedido samm tarifas ott venta mayorista pon"
-             onclick="window.open('cotizacion-repuestos/index.html','_blank')">
+             onclick="window.open('cotizacion-repuestos/Manual_Completo_Consulta_Cotizacion.html','_blank')">
             <div style="display:flex; align-items:center; gap:0.6rem;">
                 <span class="card-category">Repuestos</span>
                 <span class="badge badge-new">Nuevo</span>
@@ -523,21 +523,22 @@
             </div>
         </div>
 
-        <!-- PRÓXIMOS MANUALES (placeholders) -->
-        <div class="manual-card coming-soon"
-             data-name="manual de servicio técnico en campo"
-             data-category="Técnico"
-             data-keywords="técnico campo visita servicio">
+        <!-- MANUAL 2: Creación de Entrada -->
+        <div class="manual-card"
+             data-name="manual creación de entrada almacén"
+             data-category="Sistemas"
+             data-keywords="entrada almacén taller ott orden trabajo samm ingreso evidencia"
+             onclick="window.open('manual-creacion-entrada/Index.html','_blank')">
             <div style="display:flex; align-items:center; gap:0.6rem;">
-                <span class="card-category">Técnico</span>
-                <span class="badge badge-soon">Próximamente</span>
+                <span class="card-category">Sistemas</span>
+                <span class="badge badge-new">Nuevo</span>
             </div>
-            <div class="card-title">Servicio Técnico en Campo</div>
+            <div class="card-title">Manual Creación de Entrada</div>
             <div class="card-desc">
-                Procedimientos para visitas técnicas, diagnóstico de equipos y cierre de órdenes de trabajo.
+                Procedimiento para registrar el ingreso de equipos al almacén/taller en SAMM Web: verificación de OTT, tipo de documento, observaciones y evidencia fotográfica.
             </div>
             <div class="card-footer">
-                <span class="card-steps">En preparación</span>
+                <span class="card-steps">5 pasos · SAMM</span>
                 <div class="card-arrow">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                         <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -546,6 +547,79 @@
             </div>
         </div>
 
+        <!-- MANUAL 3: Creación de Salida -->
+        <div class="manual-card"
+             data-name="manual creación de salida almacén"
+             data-category="Sistemas"
+             data-keywords="salida almacén laboratorio entrega reparación orden trabajo samm evidencia"
+             onclick="window.open('manual-creacion-salida/manual-creacion-salida.html','_blank')">
+            <div style="display:flex; align-items:center; gap:0.6rem;">
+                <span class="card-category">Sistemas</span>
+                <span class="badge badge-new">Nuevo</span>
+            </div>
+            <div class="card-title">Manual Creación de Salida</div>
+            <div class="card-desc">
+                Pasos para registrar la salida de un producto del almacén en SAMM Web: verificación de estado, documento de salida de laboratorio, observaciones y evidencias.
+            </div>
+            <div class="card-footer">
+                <span class="card-steps">6 pasos · SAMM</span>
+                <div class="card-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANUAL 4: Creación de Item -->
+        <div class="manual-card"
+             data-name="manual creación de ítems repuestos nuevos"
+             data-category="Repuestos"
+             data-keywords="item repuesto nuevo catálogo samm número de parte familia marca LG"
+             onclick="window.open('manual-creacion-item/Index.html','_blank')">
+            <div style="display:flex; align-items:center; gap:0.6rem;">
+                <span class="card-category">Repuestos</span>
+                <span class="badge badge-new">Nuevo</span>
+            </div>
+            <div class="card-title">Manual Creación de Ítems</div>
+            <div class="card-desc">
+                Proceso para ingresar repuestos nuevos por primera vez al catálogo SAMM: configuración de familia, código de parte, marca, impuesto y precio.
+            </div>
+            <div class="card-footer">
+                <span class="card-steps">4 pasos · SAMM</span>
+                <div class="card-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANUAL 5: Disponibilidad -->
+        <div class="manual-card"
+             data-name="manual disponibilidad supervisión samm"
+             data-category="Sistemas"
+             data-keywords="disponibilidad supervisor instalaciones fechavisita departamento programación equipos samm"
+             onclick="window.open('manual-disponibilidad/manual-disponibilidad.html','_blank')">
+            <div style="display:flex; align-items:center; gap:0.6rem;">
+                <span class="card-category">Sistemas</span>
+                <span class="badge badge-new">Nuevo</span>
+            </div>
+            <div class="card-title">Manual Disponibilidad</div>
+            <div class="card-desc">
+                Guía para supervisores: filtrado por departamento, rango de fechas, consulta de programación diaria y análisis de disponibilidad por tipo de equipo en SAMM Web.
+            </div>
+            <div class="card-footer">
+                <span class="card-steps">5 pasos · SAMM</span>
+                <div class="card-arrow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRÓXIMO -->
         <div class="manual-card coming-soon"
              data-name="manual de garantías y reclamaciones"
              data-category="Administrativo"
@@ -557,28 +631,6 @@
             <div class="card-title">Garantías y Reclamaciones</div>
             <div class="card-desc">
                 Proceso para gestionar garantías de producto, reclamaciones de clientes y devoluciones ante LG.
-            </div>
-            <div class="card-footer">
-                <span class="card-steps">En preparación</span>
-                <div class="card-arrow">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-        <div class="manual-card coming-soon"
-             data-name="manual de gestión en samm"
-             data-category="Sistemas"
-             data-keywords="samm sistema órdenes trabajo gestión">
-            <div style="display:flex; align-items:center; gap:0.6rem;">
-                <span class="card-category">Sistemas</span>
-                <span class="badge badge-soon">Próximamente</span>
-            </div>
-            <div class="card-title">Gestión Completa en SAMM</div>
-            <div class="card-desc">
-                Uso avanzado del sistema SAMM: creación de órdenes, seguimiento, facturación y reportes.
             </div>
             <div class="card-footer">
                 <span class="card-steps">En preparación</span>
