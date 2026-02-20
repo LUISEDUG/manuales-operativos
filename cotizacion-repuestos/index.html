@@ -371,6 +371,152 @@
             color: var(--blanco);
             margin-top: 2rem;
         }
+
+        /* === BODEGAS Y DECISIÓN === */
+        .decision-step {
+            background: white;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 6px solid var(--azul-samm);
+        }
+
+        .decision-step h2 {
+            color: #2980b9;
+            font-size: 1.2em;
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .decision-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.2rem 0;
+        }
+
+        .decision-card {
+            padding: 1.2rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .decision-card.green {
+            background: #f0fff4;
+            border: 2px solid #48bb78;
+        }
+
+        .decision-card.green .decision-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .decision-card.green strong {
+            color: var(--verde-exito);
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .decision-card.orange {
+            background: #fffaf0;
+            border: 2px solid #ed8936;
+        }
+
+        .decision-card.orange .decision-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .decision-card.orange strong {
+            color: #c05621;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .warehouse-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 1.2rem 0;
+        }
+
+        .warehouse-card {
+            background: #f8fafc;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.9rem;
+        }
+
+        .warehouse-card.available {
+            border-left: 4px solid #48bb78;
+            background: #f0fff4;
+        }
+
+        .warehouse-card.external {
+            border-left: 4px solid #ed8936;
+            background: #fffaf0;
+        }
+
+        .warehouse-card strong {
+            color: #2c5282;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.92rem;
+            border-bottom: 1px solid #cbd5e0;
+            padding-bottom: 4px;
+        }
+
+        .warehouse-card.available strong { color: var(--verde-exito); }
+        .warehouse-card.external strong { color: #c05621; }
+
+        .warehouse-card p {
+            margin: 4px 0 0 0;
+            line-height: 1.4;
+            color: #4a5568;
+        }
+
+        .warehouse-legend {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin: 0.8rem 0 1.2rem 0;
+            font-size: 0.88rem;
+            align-items: center;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .legend-dot.green { background: #48bb78; }
+        .legend-dot.orange { background: #ed8936; }
+
+        .warning-card-box {
+            background: #fffaf0;
+            border: 1px solid #fbd38d;
+            border-left: 5px solid #ed8936;
+            padding: 0.9rem 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            font-size: 0.93rem;
+            color: #744210;
+        }
+
+        @media (max-width: 620px) {
+            .decision-banner, .warehouse-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -448,6 +594,70 @@
         <img src="image_bdd80a.png" alt="Resultado de disponibilidad de repuestos">
     </div>
 
+    <div class="decision-step">
+        <h2>Paso 6: Interpretar la Bodega y Decidir el Flujo</h2>
+        <p>Una vez identificada la bodega donde aparece el repuesto, determine si está disponible internamente o si debe solicitarse a LG. Esto define el camino a seguir:</p>
+
+        <div class="decision-banner">
+            <div class="decision-card green">
+                <span class="decision-icon">✅</span>
+                <strong>Disponible para Cotizar Directamente</strong>
+                El repuesto aparece en <b>Electro Service Stock</b>. Se puede cotizar y despachar de inmediato <b>sin hacer ningún pedido a LG</b>.
+            </div>
+            <div class="decision-card orange">
+                <span class="decision-icon">📦</span>
+                <strong>Requiere Pedido a LG</strong>
+                El repuesto está en cualquier otra bodega o no aparece en el sistema. Continúe con el Procedimiento 2 completo (GSFS + PON).
+            </div>
+        </div>
+
+        <p><strong>Referencia de Bodegas — ¿Qué significa cada una?</strong></p>
+
+        <div class="warehouse-legend">
+            <span><span class="legend-dot green"></span> Disponible para cotizar directamente (solo Electro Service Stock)</span>
+            <span><span class="legend-dot orange"></span> No disponible / Reservada / Requiere pedido a LG</span>
+        </div>
+
+        <div class="warehouse-grid">
+            <div class="warehouse-card available">
+                <strong>Electro Service Stock</strong>
+                <p>⭐ <b>Única bodega disponible para cotizar directamente.</b> Contiene repuestos fuera de garantía en stock bajo código <b>COS03262-S</b> que pueden ofrecerse al cliente sin necesidad de hacer un pedido a LG.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Bogotá</strong>
+                <p>Repuestos destinados exclusivamente a <b>garantías</b>, código <b>CO000553</b>. <b>No se deben tocar</b> para cotizaciones o ventas.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Safety Stock</strong>
+                <p>Stock de respaldo bajo código <b>CO000553</b>. <b>No se utiliza</b> para cotizaciones ni ventas directas.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Facturados</strong>
+                <p>Repuestos que ya fueron <b>pagados por un cliente</b>, código <b>COS03262-S</b>. Están reservados y <b>no están disponibles</b> para nuevas cotizaciones.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Ventas</strong>
+                <p>Repuestos clasificados como RV que ya tienen un cliente asignado, código <b>COS03262-S</b>. Ya están vendidos y <b>no pueden ofrecerse</b> a otro cliente.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Cundinamarca</strong>
+                <p>Repuestos bajo código <b>COS02186</b> para operación fuera de Bogotá. Corresponden a órdenes o clientes ya asignados en esa región; <b>no se usan para cotizaciones en Bogotá</b>.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Mal Solicitados</strong>
+                <p>Repuestos pedidos incorrectamente. Pueden reutilizarse en otros servicios, pero requieren validación previa.</p>
+            </div>
+            <div class="warehouse-card external">
+                <strong>Electro Service Usados</strong>
+                <p>Partes retornadas para prueba o descarte. Funcionamiento <b>no garantizado</b>; no deben ofrecerse como nuevos.</p>
+            </div>
+        </div>
+
+        <div class="warning-card-box">
+            <strong>📢 Importante — Tarjetas Electrónicas:</strong> Si el repuesto requerido es una tarjeta electrónica y debe pedirse a LG, es obligatorio adjuntar la <b>foto</b> y el <b>número de parte exacto</b> al momento de gestionar la solicitud. Sin esta información no se procesará el pedido.
+        </div>
+    </div>
+
 </div>
 
 
@@ -460,7 +670,7 @@
         Procedimiento 2: Cotización y Pedido de Repuestos — GSFS y SAMM
     </div>
     <div class="section-note vinotinto-note">
-        Una vez validado el stock, proceda con la búsqueda en GSFS, el cálculo de precios y la legalización del pedido en SAMM.
+        Realice este procedimiento <strong>únicamente si el repuesto no está disponible en nuestras bodegas internas</strong> (según el Paso 6 anterior). Si ya existe en bodega, puede cotizarlo directamente sin pasar por GSFS ni generar un PON.
     </div>
 </div>
 
