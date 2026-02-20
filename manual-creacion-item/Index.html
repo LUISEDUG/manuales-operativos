@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual: Creación de Ítems - 2026</title>
+    <style>
+        :root {
+            --vinotinto: #a50034;
+            --negro: #212121;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+            --azul-samm: #0056b3;
+            --verde-exito: #2e7d32;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--negro);
+            background-color: var(--gris-claro);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--vinotinto);
+            color: var(--blanco);
+            padding: 2.5rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .step-card {
+            background: var(--blanco);
+            border-left: 6px solid var(--vinotinto);
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: var(--vinotinto);
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+        }
+
+        .step-number {
+            background: var(--negro);
+            color: var(--blanco);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 0.9em;
+            flex-shrink: 0;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: var(--vinotinto);
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 1.5rem 0;
+            background: #fdfdfd;
+            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .image-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .image-group .image-container {
+            flex: 1 1 300px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+
+        img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* --- ESTILOS PARA EL ZOOM (MODAL) --- */
+        #modal-zoom {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        #modal-zoom img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 3px solid white;
+            cursor: zoom-out;
+        }
+
+        .info-box {
+            background-color: #f0f7ff;
+            border-left: 5px solid var(--azul-samm);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .form-guide {
+            background-color: #fffde7;
+            border: 1px solid #fbc02d;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem;
+            background: var(--negro);
+            color: var(--blanco);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="modal-zoom" onclick="this.style.display='none'">
+    <img id="img-ampliada" src="" alt="Zoom">
+</div>
+
+<header>
+    <h1>Manual de Creación de Ítems (Repuestos Nuevos)</h1>
+    <p>Procedimiento para el ingreso de partes por primera vez en SAMM</p>
+</header>
+
+<div class="container">
+
+    <div class="step-card">
+        <h2><span class="step-number">1</span>Inicio desde RV o RQ</h2>
+        <p>Este proceso se realiza cuando el repuesto ingresa por primera vez a bodega y no existe registro previo en el catálogo. Primero, asegúrese de estar dentro de la <strong>RV (Remisión)</strong> o la <strong>RQ (Requisición)</strong>.</p>
+        <div class="image-container"><img src="Imagen 1.png" alt="Pantalla RV/RQ"></div>
+
+        <p>Diríjase a la barra superior de color azul y haga clic en el botón <span class="highlight">ITEM</span>.</p>
+        <div class="image-container"><img src="Imagen 2.png" alt="Botón Item"></div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">2</span>Configuración de Catálogo</h2>
+        <p>Se abrirá una nueva ventana de búsqueda. En la sección <strong>Tipo Catálogo</strong>, seleccione del menú desplegable la opción <span class="highlight">Repuestos</span>.</p>
+        <div class="image-group">
+            <div class="image-container"><img src="Imagen 3.png" alt="Ventana Items"></div>
+            <div class="image-container"><img src="Imagen 4.png" alt="Selección Repuestos"></div>
+        </div>
+
+        <p>En el campo <strong>Catálogo</strong>, haga clic en la <strong>lupa</strong>. Se desplegará un nuevo menú; allí, seleccione el botón <span class="highlight">NUEVO</span>.</p>
+        <div class="image-container"><img src="Imagen 5.png" alt="Botón Nuevo"></div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">3</span>Llenado de Formulario Técnico</h2>
+        <p>Se abrirá el formulario de creación. Diligencie obligatoriamente los campos subrayados:</p>
+        
+        <div class="form-guide">
+            <ul>
+                <li><strong>Catálogo de repuesto:</strong> Nombre descriptivo (Ej: <i>Filtro</i>).</li>
+                <li><strong>Código:</strong> El número de parte exacto del repuesto.</li>
+                <li><strong>Marca:</strong> Marca del repuesto (Normalmente <i>LG</i>).</li>
+                <li><strong>Familia:</strong> Haga clic en la lupa para buscar el producto al que pertenece (Ver Imagen 7).</li>
+                <li><strong>Subtipo de catálogo:</strong> Seleccione <i>Repuestos</i>.</li>
+                <li><strong>Impuesto:</strong> IVA 19%.</li>
+                <li><strong>Unidad:</strong> Opción <i>Unidad</i>.</li>
+                <li><strong>Nacional / Vigente:</strong> Responda según corresponda y marque <i>SÍ</i> en vigente.</li>
+            </ul>
+        </div>
+
+        <div class="image-group">
+            <div class="image-container"><img src="Imagen 6.png" alt="Formulario Nuevo Item"></div>
+            <div class="image-container"><img src="Imagen 7.png" alt="Selección de Familia"></div>
+        </div>
+        
+        <p>El registro completo debe lucir como se muestra a continuación. Haga clic en <span class="highlight">ACEPTAR</span>.</p>
+        <div class="image-container"><img src="Imagen 8.png" alt="Registro Completo"></div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">4</span>Carga y Finalización</h2>
+        <p>Al aceptar, volverá a la página anterior. Ingrese el <strong>Número de Parte</strong> que acaba de crear y presione <i>Enter</i>. El repuesto aparecerá cargado.</p>
+        
+        <div class="info-box">
+            <strong>Pasos finales:</strong>
+            <ul>
+                <li>Coloque el <strong>Precio de Cotización (SIN IVA)</strong>.</li>
+                <li>Ajuste la <strong>Cantidad</strong> si ingresó más de una unidad.</li>
+            </ul>
+        </div>
+
+        <div class="image-container"><img src="Imagen 9.png" alt="Carga de Precio y Cantidad"></div>
+
+        <p style="text-align: center; font-weight: bold; color: var(--verde-exito);">
+            Haga clic en ACEPTAR, luego en GUARDAR Y VOLVER. El ítem ya está registrado.
+        </p>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 ELECTRO SERVICE S.A. | Gestión de Catálogo SAMM</p>
+    <p style="font-size: 0.8rem; opacity: 0.7;">Confidencial - Uso Interno</p>
+</footer>
+
+<script>
+    // Lógica para el zoom de imágenes
+    const modal = document.getElementById('modal-zoom');
+    const imgAmpliada = document.getElementById('img-ampliada');
+    const imagenes = document.querySelectorAll('img:not(#img-ampliada)');
+
+    imagenes.forEach(imagen => {
+        imagen.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            imgAmpliada.src = imagen.src;
+        });
+    });
+</script>
+
+</body>
+</html>

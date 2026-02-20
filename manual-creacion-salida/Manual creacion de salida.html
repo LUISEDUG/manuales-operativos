@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Procedimiento de Salida de Almacén</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #1f4e79;
+        }
+        h2 {
+            color: #2e75b6;
+            border-bottom: 2px solid #2e75b6;
+            padding-bottom: 5px;
+        }
+        .paso {
+            background: #ffffff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .paso img {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .nota {
+            background: #fff3cd;
+            padding: 10px;
+            border-left: 5px solid #ffc107;
+            margin-top: 10px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Procedimiento para la Creación de Salida de Almacén</h1>
+
+<p>
+Este documento describe el proceso para registrar la <strong>Salida de un producto del almacén</strong>
+en el sistema <strong>SAMM Web</strong>, asegurando el control del inventario y la trazabilidad del equipo.
+</p>
+
+<!-- PASO 1 -->
+<div class="paso">
+    <h2>Paso 1: Buscar la orden de servicio</h2>
+    <p>
+        Ingrese al módulo <strong>Órdenes de Trabajo</strong> y busque la orden correspondiente
+        al producto que será entregado.
+    </p>
+    <img src="img/paso1_busqueda_orden.png" alt="Búsqueda de orden de servicio">
+</div>
+
+<!-- PASO 2 -->
+<div class="paso">
+    <h2>Paso 2: Verificar el estado de la orden</h2>
+    <p>
+        Confirme que el estado de la orden sea:
+        <strong>Reparación completa pendiente por entregar</strong>.
+    </p>
+    <div class="nota">
+        ⚠️ No se debe crear la salida si la orden tiene un estado diferente.
+    </div>
+    <img src="img/paso2_estado_reparacion.png" alt="Estado reparación completa">
+</div>
+
+<!-- PASO 3 -->
+<div class="paso">
+    <h2>Paso 3: Seleccionar el icono Salida</h2>
+    <p>
+        En la barra superior azul del sistema, haga clic en el icono <strong>Salida</strong>.
+    </p>
+    <img src="img/paso3_icono_salida.png" alt="Icono salida en barra superior">
+</div>
+
+<!-- PASO 4 -->
+<div class="paso">
+    <h2>Paso 4: Crear el documento Salida de Laboratorio</h2>
+    <p>
+        En la nueva pestaña, seleccione en el campo <strong>Documento</strong> la opción
+        <strong>Salida de Laboratorio</strong>.
+    </p>
+    <img src="img/paso4_documento_salida.png" alt="Documento salida de laboratorio">
+</div>
+
+<!-- PASO 5 -->
+<div class="paso">
+    <h2>Paso 5: Registrar observaciones</h2>
+    <p>
+        En el campo <strong>Observaciones</strong>, registre el estado del producto al momento
+        de la entrega.
+    </p>
+    <p><strong>Ejemplos:</strong></p>
+    <ul>
+        <li>Producto entregado en correcto funcionamiento, sin fallas. Se entrega con accesorios completos.</li>
+        <li>Producto entregado funcional, sin fallas. Se entrega sin accesorios.</li>
+    </ul>
+    <img src="img/paso5_observaciones.png" alt="Campo observaciones">
+</div>
+
+<!-- PASO 6 -->
+<div class="paso">
+    <h2>Paso 6: Adjuntar evidencias fotográficas</h2>
+    <p>
+        Haga clic en el icono <strong>Archivos</strong> y adjunte las evidencias fotográficas
+        del producto al momento de la salida.
+    </p>
+    <ul>
+        <li>Estado físico</li>
+        <li>Número de serie</li>
+        <li>Accesorios (si aplica)</li>
+    </ul>
+    <img src="img/paso6_archivos_evidencias.png" alt="Carga de evidencias">
+</div>
+
+<footer>
+    Documento interno – Electro Service S.A.
+</footer>
+
+</body>
+</html>
