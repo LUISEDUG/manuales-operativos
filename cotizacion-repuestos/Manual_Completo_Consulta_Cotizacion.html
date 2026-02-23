@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Completo: Consulta, Cotización y Pedido de Repuestos - 2026</title>
+    <title>Manual Completo: Cotización y Pedido de Repuestos - 2026</title>
     <style>
-        /* === VARIABLES COMPARTIDAS === */
         :root {
             --vinotinto: #a50034;
             --negro: #212121;
@@ -13,858 +12,567 @@
             --blanco: #ffffff;
             --azul-samm: #0056b3;
             --verde-exito: #2e7d32;
-            --rojo-alerta: #d32f2f;
         }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--negro);
-            background-color: var(--gris-claro);
-            margin: 0;
-            padding: 0;
-        }
-
-        /* === HEADER PRINCIPAL === */
-        header {
-            background-color: var(--vinotinto);
-            color: var(--blanco);
-            padding: 2.5rem 1rem;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        header h1 {
-            margin: 0 0 0.5rem 0;
-            font-size: 1.9rem;
-        }
-
-        header p {
-            margin: 0;
-            opacity: 0.9;
-        }
-
-        /* === BANNER DE ORDEN DE PROCEDIMIENTO === */
-        .procedure-banner {
-            background-color: var(--negro);
-            color: var(--blanco);
-            text-align: center;
-            padding: 1.2rem 1rem;
-            font-size: 1rem;
-            letter-spacing: 0.03em;
-        }
-
-        .procedure-banner strong {
-            color: #ffd54f;
-        }
-
-        .procedure-steps-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0;
-            flex-wrap: wrap;
-            background-color: #1a1a1a;
-            padding: 0.8rem 1rem;
-        }
-
-        .proc-step {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: #2e2e2e;
-            border-radius: 6px;
-            padding: 0.6rem 1.2rem;
-            color: #ccc;
-            font-size: 0.9rem;
-        }
-
-        .proc-step.active-1 {
-            background: var(--azul-samm);
-            color: #fff;
-        }
-
-        .proc-step.active-2 {
-            background: var(--vinotinto);
-            color: #fff;
-        }
-
-        .proc-step .num {
-            background: rgba(255,255,255,0.25);
-            border-radius: 50%;
-            width: 26px;
-            height: 26px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.85rem;
-            flex-shrink: 0;
-        }
-
-        .proc-arrow {
-            color: #ffd54f;
-            font-size: 1.5rem;
-            padding: 0 0.6rem;
-            font-weight: bold;
-        }
-
-        /* === SEPARADORES DE SECCIÓN === */
-        .section-header {
-            max-width: 1000px;
-            margin: 2.5rem auto 0 auto;
-            padding: 0 1rem;
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            color: var(--blanco);
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .section-title.azul {
-            background-color: var(--azul-samm);
-        }
-
-        .section-title.vinotinto {
-            background-color: var(--vinotinto);
-        }
-
-        .section-badge {
-            background: rgba(255,255,255,0.25);
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .section-note {
-            background: #fff;
-            border-left: 5px solid var(--azul-samm);
-            padding: 0.8rem 1rem;
-            margin-top: 0.8rem;
-            border-radius: 0 6px 6px 0;
-            font-size: 0.95rem;
-            color: #333;
-        }
-
-        .section-note.vinotinto-note {
-            border-left-color: var(--vinotinto);
-        }
-
-        /* === CONTENEDOR === */
-        .container {
-            max-width: 1000px;
-            margin: 1.5rem auto 2rem auto;
-            padding: 0 1rem;
-        }
-
-        /* === TARJETAS — ESTILO GUÍA SAMM WEB (AZUL) === */
-        .step {
-            background: white;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-left: 6px solid var(--azul-samm);
-        }
-
-        .step h2 {
-            color: #2980b9;
-            font-size: 1.2em;
-            margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-
-        .step p { margin-bottom: 15px; }
-
-        .step .highlight {
-            font-weight: bold;
-            color: #e67e22;
-        }
-
-        /* === TARJETAS — ESTILO MANUAL COTIZACIÓN (VINOTINTO) === */
-        .step-card {
-            background: var(--blanco);
-            border-left: 6px solid var(--vinotinto);
-            border-radius: 8px;
-            margin-bottom: 2.5rem;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .step-card h2 {
-            color: var(--vinotinto);
-            margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 0.7rem;
-            display: flex;
-            align-items: center;
-            text-transform: uppercase;
-            font-size: 1.4rem;
-        }
-
-        .step-card h3 {
-            color: var(--negro);
-            border-left: 4px solid var(--vinotinto);
-            padding-left: 10px;
-            margin-top: 1.5rem;
-        }
-
-        .step-number {
-            background: var(--negro);
-            color: var(--blanco);
-            width: 32px;
-            height: 32px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            margin-right: 15px;
-            font-size: 0.9em;
-            flex-shrink: 0;
-        }
-
-        .highlight {
-            font-weight: bold;
-            color: var(--vinotinto);
-        }
-
-        /* === IMÁGENES === */
-        .image-container {
-            text-align: center;
-            margin: 1.5rem 0;
-            background: #fdfdfd;
-            padding: 12px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-        }
-
-        .image-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin: 1.5rem 0;
-        }
-
-        .image-group .image-container {
-            flex: 1 1 300px;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
-            display: block;
-            margin: 0 auto;
-        }
-
-        img:hover {
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* === MODAL ZOOM === */
-        #modal-zoom {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
-        }
-
-        #modal-zoom img {
-            max-width: 90%;
-            max-height: 90%;
-            border: 3px solid white;
-            cursor: zoom-out;
-            transform: none;
-        }
-
-        /* === CAJAS DE INFO Y ALERTAS === */
-        .alert-box {
-            background-color: #fff5f5;
-            border: 1px solid #feb2b2;
-            padding: 1.2rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-        }
-
-        .info-box {
-            background-color: #f0f7ff;
-            border-left: 5px solid var(--azul-samm);
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        /* === TABLA === */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1.5rem 0;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: var(--negro); background-color: var(--gris-claro); margin: 0; padding: 0; }
+        header { background-color: var(--vinotinto); color: var(--blanco); padding: 2.5rem 1rem; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        header h1 { margin: 0 0 0.5rem 0; font-size: 1.9rem; }
+        header p { margin: 0; opacity: 0.9; }
+        .procedure-banner { background-color: var(--negro); color: var(--blanco); text-align: center; padding: 1.2rem 1rem; font-size: 1rem; }
+        .procedure-banner strong { color: #ffd54f; }
+        .procedure-steps-bar { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; background-color: #1a1a1a; padding: 0.8rem 1rem; gap: 0; }
+        .proc-step { display: flex; align-items: center; gap: 10px; background: #2e2e2e; border-radius: 6px; padding: 0.6rem 1.2rem; color: #ccc; font-size: 0.9rem; }
+        .proc-step.s1 { background: #1565c0; color: #fff; }
+        .proc-step.s2 { background: var(--vinotinto); color: #fff; }
+        .proc-step.s3 { background: #2e7d32; color: #fff; }
+        .proc-step.s4 { background: #5c007a; color: #fff; }
+        .proc-step .num { background: rgba(255,255,255,0.25); border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0; }
+        .proc-arrow { color: #ffd54f; font-size: 1.4rem; padding: 0 0.5rem; font-weight: bold; }
+        .section-header { max-width: 1000px; margin: 2.5rem auto 0 auto; padding: 0 1rem; }
+        .section-title { display: flex; align-items: center; gap: 14px; padding: 1rem 1.5rem; border-radius: 8px; color: var(--blanco); font-size: 1.2rem; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+        .section-title.azul { background-color: #1565c0; }
+        .section-title.vinotinto { background-color: var(--vinotinto); }
+        .section-title.verde { background-color: #2e7d32; }
+        .section-title.morado { background-color: #5c007a; }
+        .section-badge { background: rgba(255,255,255,0.25); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: bold; flex-shrink: 0; }
+        .section-note { background: #fff; border-left: 5px solid #1565c0; padding: 0.8rem 1rem; margin-top: 0.8rem; border-radius: 0 6px 6px 0; font-size: 0.95rem; }
+        .section-note.vinotinto { border-left-color: var(--vinotinto); }
+        .section-note.verde { border-left-color: #2e7d32; }
+        .section-note.morado { border-left-color: #5c007a; }
+        .container { max-width: 1000px; margin: 1.5rem auto 2rem auto; padding: 0 1rem; }
+        .step-card { background: var(--blanco); border-left: 6px solid var(--vinotinto); border-radius: 8px; margin-bottom: 2.5rem; padding: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .step-card.azul { border-left-color: #1565c0; }
+        .step-card.verde { border-left-color: #2e7d32; }
+        .step-card.morado { border-left-color: #5c007a; }
+        .step-card h2 { color: var(--vinotinto); margin-top: 0; border-bottom: 2px solid #eee; padding-bottom: 0.7rem; display: flex; align-items: center; text-transform: uppercase; font-size: 1.3rem; }
+        .step-card.azul h2 { color: #1565c0; }
+        .step-card.verde h2 { color: #2e7d32; }
+        .step-card.morado h2 { color: #5c007a; }
+        .step-card h3 { color: var(--negro); border-left: 4px solid var(--vinotinto); padding-left: 10px; margin-top: 1.5rem; }
+        .step-card.azul h3 { border-left-color: #1565c0; }
+        .step-card.verde h3 { border-left-color: #2e7d32; }
+        .step-card.morado h3 { border-left-color: #5c007a; }
+        .step-number { background: var(--negro); color: var(--blanco); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 15px; font-size: 0.9em; flex-shrink: 0; }
+        .highlight { font-weight: bold; color: var(--vinotinto); }
+        .canal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+        .canal-card { border-radius: 8px; padding: 1.5rem; text-align: center; border: 2px solid; }
+        .canal-card.canal-1 { background: #e8f0fe; border-color: #1565c0; }
+        .canal-card.canal-2 { background: #fff0f3; border-color: var(--vinotinto); }
+        .canal-card.canal-3 { background: #f0fff4; border-color: #2e7d32; }
+        .canal-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+        .canal-card strong { display: block; font-size: 1rem; margin-bottom: 0.4rem; }
+        .canal-card p { font-size: 0.85rem; margin: 0; color: #555; }
+        .canal-badge { display: inline-block; font-size: 0.7rem; font-weight: bold; padding: 0.2rem 0.6rem; border-radius: 20px; margin-top: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .canal-1 .canal-badge { background: #1565c0; color: white; }
+        .canal-2 .canal-badge { background: var(--vinotinto); color: white; }
+        .canal-3 .canal-badge { background: #2e7d32; color: white; }
+        .abono-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .abono-card { border-radius: 8px; padding: 1.2rem; text-align: center; border: 2px solid; }
+        .abono-card .pct { font-size: 2rem; font-weight: bold; display: block; line-height: 1; margin-bottom: 0.3rem; }
+        .abono-card.a50 { background: #e8f0fe; border-color: #1565c0; }
+        .abono-card.a50 .pct { color: #1565c0; }
+        .abono-card.a70 { background: #fff0f3; border-color: var(--vinotinto); }
+        .abono-card.a70 .pct { color: var(--vinotinto); }
+        .abono-card.a100 { background: #f0fff4; border-color: #2e7d32; }
+        .abono-card.a100 .pct { color: #2e7d32; }
+        .abono-card span.label { font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        .abono-card p { font-size: 0.8rem; margin: 0.4rem 0 0 0; color: #555; }
+        .formato-wa { background: #e7f9e7; border: 1px solid #a5d6a7; border-left: 5px solid #2e7d32; border-radius: 6px; padding: 1rem 1.2rem; font-family: 'Courier New', monospace; font-size: 0.95rem; margin: 1rem 0; white-space: pre-wrap; color: #1b5e20; }
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0; }
+        .payment-card { background: #fffafa; border: 1px solid #ecccd5; padding: 1.5rem; text-align: center; border-radius: 8px; }
+        .image-container { text-align: center; margin: 1.5rem 0; background: #fdfdfd; padding: 12px; border: 1px solid #eee; border-radius: 5px; }
+        .image-group { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 1.5rem 0; }
+        .image-group .image-container { flex: 1 1 300px; }
+        img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; transition: transform 0.3s ease; cursor: zoom-in; display: block; margin: 0 auto; }
+        img:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        #modal-zoom { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out; }
+        #modal-zoom img { max-width: 90%; max-height: 90%; border: 3px solid white; cursor: zoom-out; transform: none; }
+        .alert-box { background-color: #fff5f5; border: 1px solid #feb2b2; padding: 1.2rem; border-radius: 6px; margin: 1rem 0; }
+        .info-box { background-color: #f0f7ff; border-left: 5px solid var(--azul-samm); padding: 1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; }
+        .success-box { text-align: center; font-weight: bold; color: var(--verde-exito); border: 2px solid var(--verde-exito); padding: 10px; border-radius: 5px; margin: 1rem 0; }
+        .warning-box { background: #fffaf0; border: 1px solid #fbd38d; border-left: 5px solid #ed8936; padding: 0.9rem 1rem; border-radius: 6px; margin: 1rem 0; color: #744210; }
+        .tip-box { background: #f3e5f5; border-left: 5px solid #7b1fa2; padding: 1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
         th { background-color: var(--negro); color: white; }
-
-        /* === GRILLA DE PAGOS === */
-        .payment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-
-        .payment-card {
-            background: #fffafa;
-            border: 1px solid #ecccd5;
-            padding: 1.5rem;
-            text-align: center;
-            border-radius: 8px;
-        }
-
-        /* === BOTÓN LINK === */
-        .link-btn {
-            display: inline-block;
-            background: var(--vinotinto);
-            color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin: 1rem 0;
-        }
-
-        /* === FOOTER === */
-        footer {
-            text-align: center;
-            padding: 3rem;
-            background: var(--negro);
-            color: var(--blanco);
-            margin-top: 2rem;
-        }
-
-        /* === BODEGAS Y DECISIÓN === */
-        .decision-step {
-            background: white;
-            margin-bottom: 30px;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            border-left: 6px solid var(--azul-samm);
-        }
-
-        .decision-step h2 {
-            color: #2980b9;
-            font-size: 1.2em;
-            margin-top: 0;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-
-        .decision-banner {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin: 1.2rem 0;
-        }
-
-        .decision-card {
-            padding: 1.2rem;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 0.95rem;
-        }
-
-        .decision-card.green {
-            background: #f0fff4;
-            border: 2px solid #48bb78;
-        }
-
-        .decision-card.green .decision-icon {
-            font-size: 1.8rem;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .decision-card.green strong {
-            color: var(--verde-exito);
-            display: block;
-            margin-bottom: 6px;
-            font-size: 1rem;
-        }
-
-        .decision-card.orange {
-            background: #fffaf0;
-            border: 2px solid #ed8936;
-        }
-
-        .decision-card.orange .decision-icon {
-            font-size: 1.8rem;
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .decision-card.orange strong {
-            color: #c05621;
-            display: block;
-            margin-bottom: 6px;
-            font-size: 1rem;
-        }
-
-        .warehouse-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin: 1.2rem 0;
-        }
-
-        .warehouse-card {
-            background: #f8fafc;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            font-size: 0.9rem;
-        }
-
-        .warehouse-card.available {
-            border-left: 4px solid #48bb78;
-            background: #f0fff4;
-        }
-
-        .warehouse-card.external {
-            border-left: 4px solid #ed8936;
-            background: #fffaf0;
-        }
-
-        .warehouse-card strong {
-            color: #2c5282;
-            display: block;
-            margin-bottom: 4px;
-            font-size: 0.92rem;
-            border-bottom: 1px solid #cbd5e0;
-            padding-bottom: 4px;
-        }
-
+        .warehouse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 1.2rem 0; }
+        .warehouse-card { background: #f8fafc; padding: 12px 15px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 0.9rem; }
+        .warehouse-card.available { border-left: 4px solid #48bb78; background: #f0fff4; }
+        .warehouse-card.external { border-left: 4px solid #ed8936; background: #fffaf0; }
+        .warehouse-card strong { display: block; margin-bottom: 4px; font-size: 0.92rem; border-bottom: 1px solid #cbd5e0; padding-bottom: 4px; }
         .warehouse-card.available strong { color: var(--verde-exito); }
         .warehouse-card.external strong { color: #c05621; }
-
-        .warehouse-card p {
-            margin: 4px 0 0 0;
-            line-height: 1.4;
-            color: #4a5568;
-        }
-
-        .warehouse-legend {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin: 0.8rem 0 1.2rem 0;
-            font-size: 0.88rem;
-            align-items: center;
-        }
-
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-        }
-
+        .warehouse-card p { margin: 4px 0 0 0; line-height: 1.4; color: #4a5568; }
+        .decision-banner { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.2rem 0; }
+        .decision-card { padding: 1.2rem; border-radius: 8px; text-align: center; font-size: 0.95rem; }
+        .decision-card.green { background: #f0fff4; border: 2px solid #48bb78; }
+        .decision-card.green strong { color: var(--verde-exito); display: block; margin-bottom: 6px; }
+        .decision-card.orange { background: #fffaf0; border: 2px solid #ed8936; }
+        .decision-card.orange strong { color: #c05621; display: block; margin-bottom: 6px; }
+        .decision-icon { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+        .warehouse-legend { display: flex; gap: 1.5rem; flex-wrap: wrap; margin: 0.8rem 0 1.2rem 0; font-size: 0.88rem; align-items: center; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; margin-right: 5px; }
         .legend-dot.green { background: #48bb78; }
         .legend-dot.orange { background: #ed8936; }
-
-        .warning-card-box {
-            background: #fffaf0;
-            border: 1px solid #fbd38d;
-            border-left: 5px solid #ed8936;
-            padding: 0.9rem 1rem;
-            border-radius: 6px;
-            margin: 1rem 0;
-            font-size: 0.93rem;
-            color: #744210;
-        }
-
-        @media (max-width: 620px) {
-            .decision-banner, .warehouse-grid { grid-template-columns: 1fr; }
-        }
+        .link-btn { display: inline-block; background: var(--vinotinto); color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; margin: 1rem 0; }
+        ol.pasos { padding-left: 1.2rem; }
+        ol.pasos li { margin-bottom: 0.8rem; }
+        footer { text-align: center; padding: 3rem; background: var(--negro); color: var(--blanco); margin-top: 2rem; }
+        footer small { opacity: 0.5; font-size: 0.8rem; }
+        @media (max-width: 620px) { .decision-banner, .warehouse-grid, .canal-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-<!-- MODAL ZOOM -->
 <div id="modal-zoom" onclick="this.style.display='none'">
     <img id="img-ampliada" src="" alt="Zoom">
 </div>
 
-<!-- HEADER PRINCIPAL -->
 <header>
-    <h1>Manual Completo: Consulta, Cotización y Pedido de Repuestos</h1>
-    <p>Guía Maestra: Validación en Stock, GSFS, Liquidación de Tarifas y Registro SAMM</p>
+    <h1>Manual Completo: Cotización y Pedido de Repuestos</h1>
+    <p>Guía Maestra: Canales de Entrada, GSFS, Liquidación de Tarifas y Registro SAMM</p>
 </header>
 
-<!-- BANNER DE ORDEN -->
 <div class="procedure-banner">
-    <strong>⚠ IMPORTANTE:</strong> Antes de cotizar un repuesto, siempre se debe validar primero su disponibilidad en stock. Solo después se procede con la cotización y el pedido.
+    <strong>⚠ FLUJO GENERAL:</strong> Identificar canal → Consultar stock → Cotizar en GSFS → Gestionar abono → Realizar pedido → Registrar en SAMM
 </div>
 <div class="procedure-steps-bar">
-    <div class="proc-step active-1">
-        <span class="num">1</span>
-        Consulta de Stock en SAMM Web
-    </div>
+    <div class="proc-step s1"><span class="num">1</span>Canal de Entrada</div>
     <div class="proc-arrow">→</div>
-    <div class="proc-step active-2">
-        <span class="num">2</span>
-        Cotización y Pedido de Repuestos
-    </div>
+    <div class="proc-step s2"><span class="num">2</span>Cotización GSFS</div>
+    <div class="proc-arrow">→</div>
+    <div class="proc-step s3"><span class="num">3</span>Abono y Confirmación</div>
+    <div class="proc-arrow">→</div>
+    <div class="proc-step s4"><span class="num">4</span>Pedido y SAMM</div>
 </div>
 
 
-<!-- =============================== -->
-<!-- PROCEDIMIENTO 1: CONSULTA STOCK -->
-<!-- =============================== -->
+<!-- SECCIÓN 0 -->
 <div class="section-header">
-    <div class="section-title azul">
-        <span class="section-badge">1</span>
-        Procedimiento 1: Consulta de Repuestos en Stock — SAMM Web
-    </div>
-    <div class="section-note">
-        Este es el <strong>primer paso obligatorio</strong>. Se debe verificar si el repuesto ya existe en inventario antes de realizar cualquier cotización o pedido.
-    </div>
+    <div class="section-title azul"><span class="section-badge">0</span>Identificación del Canal de Entrada</div>
+    <div class="section-note">Antes de comenzar, identifique <strong>por qué canal llegó la solicitud</strong>. Esto determina cómo se cotiza, cómo se comunica y qué porcentaje de abono se exige.</div>
 </div>
 
 <div class="container">
 
-    <div class="step">
-        <h2>Paso 1: Acceder al Menú de Reportes</h2>
-        <p>Una vez dentro de la página principal de SAMM Web, haz clic en la pestaña superior <span class="highlight">"MIS ACCESOS"</span>. En el menú desplegable que aparece, selecciona la opción <span class="highlight">"REPORTES"</span>.</p>
-        <img src="image_bddc28.png" alt="Menú Mis Accesos y selección de Reportes">
+    <div class="step-card azul">
+        <h2>Los 3 Canales de Recepción</h2>
+        <div class="canal-grid">
+            <div class="canal-card canal-1">
+                <span class="canal-icon">📞</span>
+                <strong>Canal 1: Cotización en Línea</strong>
+                <p>El técnico está en el domicilio y necesita la cotización en ese momento. Envía la foto o número del repuesto por WhatsApp o llama al callcenter.</p>
+                <span class="canal-badge">OTT — Técnico en campo</span>
+            </div>
+            <div class="canal-card canal-2">
+                <span class="canal-icon">📋</span>
+                <strong>Canal 2: Cotización a Cliente</strong>
+                <p>El técnico ya salió del domicilio y subió su reporte a SAMM. Se contacta al cliente directamente vía WiseCX.</p>
+                <span class="canal-badge">OTT — Reporte en SAMM</span>
+            </div>
+            <div class="canal-card canal-3">
+                <span class="canal-icon">🛒</span>
+                <strong>Canal 3: Venta de Repuesto</strong>
+                <p>Un cliente escribe al bot de WhatsApp solicitando un repuesto, con o sin número de parte.</p>
+                <span class="canal-badge">Bot WhatsApp — Venta directa</span>
+            </div>
+        </div>
     </div>
 
-    <div class="step">
-        <h2>Paso 2: Navegar a Inventario</h2>
-        <p>Se abrirá el panel de indicadores y reportes. En el árbol de carpetas de la izquierda, busca y expande la carpeta llamada <span class="highlight">"Inventario"</span>.</p>
-        <img src="image_bddb56.png" alt="Carpeta Inventario en el menú lateral">
+    <!-- CANAL 1 -->
+    <div class="step-card azul">
+        <h2><span class="step-number">1</span>Canal 1: Cotización en Línea (Técnico en Campo)</h2>
+        <p>El técnico está en el domicilio del cliente y necesita la cotización en ese momento. Se comunica por WhatsApp o llama al callcenter.</p>
+        <div class="image-container"><img src="MC 1.1.1.PNG" alt="Chat con el técnico"></div>
+
+        <h3>Paso 1 — Obtener el número de parte</h3>
+        <p>Lea el número de parte de la foto enviada por el técnico. Si no es legible, solicítele que lo escriba en texto.</p>
+        <div class="image-group">
+            <div class="image-container"><img src="MC 1.1.2.PNG" alt="Foto número de parte"></div>
+            <div class="image-container"><img src="MC 1.1.3.PNG" alt="Detalle número de parte"></div>
+        </div>
+
+        <h3>Paso 2 — Ir a GSFS y cotizar</h3>
+        <p>Realice la búsqueda y cálculo de precio tal como se describe en la <strong>Sección 2</strong>. Tome nota del valor final con IVA.</p>
+
+        <h3>Paso 3 — Responder al técnico por WhatsApp</h3>
+        <p>Responda usando el siguiente formato:</p>
+        <div class="formato-wa">OTT-[NÚMERO DE OTT]
+[Número de parte] — $[Valor del repuesto con IVA]
+Mano de obra: $[Valor mano de obra]
+Total: $[Valor total]</div>
+
+        <div class="info-box">
+            <strong>Ejemplo:</strong><br>
+            OTT-43821<br>
+            ADL74761516 — $185.000<br>
+            Mano de obra: $80.000<br>
+            Total: $265.000
+        </div>
+
+        <div class="alert-box">
+            <strong>⚠ Importante:</strong> En este canal <strong>NO se le escribe directamente al cliente</strong>. Toda la comunicación va al técnico. Él es quien informa al cliente.
+        </div>
     </div>
 
-    <div class="step">
-        <h2>Paso 3: Seleccionar el Listado de Bodegas</h2>
-        <p>Dentro de Inventario, selecciona el reporte específico: <span class="highlight">"Listado General de Repuestos Bodegas Electro Service"</span>.</p>
-        <img src="image_bdd8ac.png" alt="Selección de Listado General de Repuestos">
+    <!-- CANAL 2 -->
+    <div class="step-card">
+        <h2><span class="step-number">2</span>Canal 2: Cotización a Cliente (Reporte en SAMM)</h2>
+        <p>El técnico ya salió del domicilio y subió su reporte a la OTT en SAMM. Usted debe leer ese reporte, identificar el repuesto y cotizárselo al cliente.</p>
+
+        <h3>Paso 1 — Abrir la OTT en SAMM</h3>
+        <p>Ingrese al sistema SAMM Web.</p>
+        <div class="image-container"><img src="MC 1.2.1.PNG" alt="Pantalla principal SAMM Web"></div>
+
+        <p>Diríjase al panel de <strong>Órdenes de Trabajo</strong> y haga clic en el número que aparece al lado de <span class="highlight">"Pendiente por cotizar"</span>.</p>
+        <div class="image-container"><img src="MC 1.2.2.PNG" alt="Panel órdenes - pendiente por cotizar"></div>
+
+        <p>Verá el listado de órdenes disponibles. Seleccione cualquiera para comenzar a cotizar.</p>
+        <div class="image-container"><img src="MC 1.2.3.PNG" alt="Listado de órdenes para cotizar"></div>
+
+        <p>Una vez dentro de la orden, haga clic en el botón <span class="highlight">Archivos Adjuntos</span>.</p>
+        <div class="image-container"><img src="MC 1.2.4.PNG" alt="Botón Archivos Adjuntos"></div>
+
+        <h3>Paso 2 — Leer el reporte del técnico</h3>
+        <p>Aparecerá una nueva pestaña donde podrá ver el <strong>diagnóstico</strong>. Luego haga clic en el botón de al lado para ver las fotos.</p>
+        <div class="image-container"><img src="MC 1.2.5.PNG" alt="Diagnóstico del técnico"></div>
+
+        <p>Aparecerán las fotos cargadas por el técnico. Busque la foto del repuesto. Si no la encuentra, revise cada una.</p>
+        <div class="image-container"><img src="MC 1.2.6.PNG" alt="Fotos del técnico"></div>
+
+        <div class="tip-box">
+            <strong>💡 ¿No aparece la foto del número de parte?</strong><br>
+            Informe al técnico y pídale que indique cuál es el repuesto. Si en el diagnóstico aparece el nombre de la pieza, búsquela en el <strong>Despiece de GSFS</strong>, tome una captura del diagrama y envíesela al técnico junto con el diagnóstico para confirmar si es lo que necesita.
+        </div>
+
+        <h3>Paso 3 — Ir a GSFS y cotizar cada repuesto</h3>
+        <p>Por cada repuesto identificado en el reporte, realice la cotización en GSFS (ver <strong>Sección 2</strong>). Si son varios, <strong>anote cada valor en un bloc de notas</strong> para luego sumarlos.</p>
+        <div class="info-box">
+            <strong>Ejemplo de notas:</strong><br>
+            Repuesto 1: ADL74761516 → $185.000<br>
+            Repuesto 2: EBR84939804 → $210.000<br>
+            <strong>Total: $395.000</strong>
+        </div>
+
+        <h3>Paso 4 — Enviar cotización al cliente por WiseCX</h3>
+        <p>Ingrese a <strong>WiseCX</strong>, busque la conversación del cliente y use la plantilla <span class="highlight">"cotización"</span> para enviar los valores.</p>
+        <div class="image-group">
+            <div class="image-container"><img src="MC 1.2.7.PNG" alt="WiseCX seleccionar plantilla cotización"></div>
+            <div class="image-container"><img src="MC 1.2.8.PNG" alt="WiseCX envío de cotización"></div>
+        </div>
+        <div class="alert-box">
+            <strong>⚠ Si aparece un error al enviar la plantilla:</strong> Llame directamente al cliente para comunicarle la cotización.
+        </div>
     </div>
 
-    <div class="step">
-        <h2>Paso 4: Filtrar por Código de Repuesto</h2>
-        <p>En el formulario de filtros, localiza el campo <span class="highlight">"Código Alterno"</span>. Escribe el número de parte del repuesto (ej: ADL74761516) y haz clic en el botón <span class="highlight">"Aceptar"</span>.</p>
-        <img src="image_bdd84f.png" alt="Ingreso del código y botón aceptar">
+    <!-- CANAL 3 -->
+    <div class="step-card verde">
+        <h2><span class="step-number">3</span>Canal 3: Venta de Repuesto (Bot WhatsApp)</h2>
+        <p>Un cliente escribe al bot de WhatsApp solicitando un repuesto. Puede tener el número de parte o solo el modelo del equipo.</p>
+
+        <h3>Si el cliente tiene el número de parte</h3>
+        <p>Busque directamente en GSFS por número de parte y cotice normalmente (ver <strong>Sección 2, Opción A</strong>).</p>
+
+        <h3>Si el cliente solo tiene el modelo</h3>
+        <p>Use la herramienta <strong>Despiece en GSFS</strong> para identificar el número de parte correcto (ver <strong>Sección 2, Opción B</strong>).</p>
+
+        <h3>Enviar cotización al cliente</h3>
+        <p>En WiseCX, use la plantilla <span class="highlight">"cotiza_repuesto"</span> — <strong>no</strong> use "cotización".</p>
+        <div class="image-container"><img src="MC 1.3.1.PNG" alt="WiseCX plantilla cotiza_repuesto"></div>
+
+        <div class="info-box">
+            <strong>Diferencia clave de plantillas:</strong><br>
+            Canal 2 (OTT) → Plantilla <strong>"cotización"</strong><br>
+            Canal 3 (Venta) → Plantilla <strong>"cotiza_repuesto"</strong>
+        </div>
     </div>
 
-    <div class="step">
-        <h2>Paso 5: Visualizar Resultados</h2>
-        <p>El sistema generará un documento donde podrás verificar el stock disponible y la bodega exacta donde se encuentra el repuesto.</p>
-        <img src="image_bdd80a.png" alt="Resultado de disponibilidad de repuestos">
+</div>
+
+
+<!-- SECCIÓN 1 -->
+<div class="section-header">
+    <div class="section-title azul"><span class="section-badge">1</span>Procedimiento 1: Consulta de Repuestos en Stock — SAMM Web</div>
+    <div class="section-note"><strong>Primer paso obligatorio.</strong> Antes de ir a GSFS, verifique si el repuesto ya existe en inventario. Si está en <em>Electro Service Stock</em>, puede cotizarlo directamente sin generar pedido a LG.</div>
+</div>
+
+<div class="container">
+
+    <div class="step-card azul">
+        <h2>Paso 1 — Acceder al Menú de Reportes</h2>
+        <p>En SAMM Web, haga clic en <span class="highlight">MIS ACCESOS</span> y seleccione <span class="highlight">REPORTES</span>.</p>
+        <div class="image-container"><img src="image_bddc28.png" alt="Menú Mis Accesos y Reportes"></div>
     </div>
 
-    <div class="decision-step">
-        <h2>Paso 6: Interpretar la Bodega y Decidir el Flujo</h2>
-        <p>Una vez identificada la bodega donde aparece el repuesto, determine si está disponible internamente o si debe solicitarse a LG. Esto define el camino a seguir:</p>
+    <div class="step-card azul">
+        <h2>Paso 2 — Navegar a Inventario</h2>
+        <p>En el árbol de carpetas, busque y expanda la carpeta <span class="highlight">"Inventario"</span>.</p>
+        <div class="image-container"><img src="image_bddb56.png" alt="Carpeta Inventario"></div>
+    </div>
 
+    <div class="step-card azul">
+        <h2>Paso 3 — Seleccionar el Listado de Bodegas</h2>
+        <p>Seleccione: <span class="highlight">"Listado General de Repuestos Bodegas Electro Service"</span>.</p>
+        <div class="image-container"><img src="image_bdd8ac.png" alt="Listado General de Repuestos"></div>
+    </div>
+
+    <div class="step-card azul">
+        <h2>Paso 4 — Filtrar por Código de Repuesto</h2>
+        <p>En el campo <span class="highlight">"Código Alterno"</span>, ingrese el número de parte y haga clic en <span class="highlight">Aceptar</span>.</p>
+        <div class="image-container"><img src="image_bdd84f.png" alt="Filtro por Código Alterno"></div>
+    </div>
+
+    <div class="step-card azul">
+        <h2>Paso 5 — Visualizar Resultados</h2>
+        <p>El sistema mostrará el stock disponible y la bodega exacta donde se encuentra el repuesto.</p>
+        <div class="image-container"><img src="image_bdd80a.png" alt="Resultado de disponibilidad"></div>
+    </div>
+
+    <div class="step-card azul">
+        <h2>Paso 6 — Interpretar la Bodega y Decidir</h2>
         <div class="decision-banner">
             <div class="decision-card green">
                 <span class="decision-icon">✅</span>
-                <strong>Disponible para Cotizar Directamente</strong>
-                El repuesto aparece en <b>Electro Service Stock</b>. Se puede cotizar y despachar de inmediato <b>sin hacer ningún pedido a LG</b>.
+                <strong>Cotizar Directamente</strong>
+                Aparece en <b>Electro Service Stock</b>. No se necesita pedido a LG.
             </div>
             <div class="decision-card orange">
                 <span class="decision-icon">📦</span>
                 <strong>Requiere Pedido a LG</strong>
-                El repuesto está en cualquier otra bodega o no aparece en el sistema. Continúe con el Procedimiento 2 completo (GSFS + PON).
+                Está en otra bodega o no aparece. Continúe con la Sección 2 completa.
             </div>
         </div>
-
-        <p><strong>Referencia de Bodegas — ¿Qué significa cada una?</strong></p>
-
         <div class="warehouse-legend">
-            <span><span class="legend-dot green"></span> Disponible para cotizar directamente (solo Electro Service Stock)</span>
-            <span><span class="legend-dot orange"></span> No disponible / Reservada / Requiere pedido a LG</span>
+            <span><span class="legend-dot green"></span>Disponible para cotizar directamente</span>
+            <span><span class="legend-dot orange"></span>No disponible / Requiere pedido a LG</span>
         </div>
-
         <div class="warehouse-grid">
-            <div class="warehouse-card available">
-                <strong>Electro Service Stock</strong>
-                <p>⭐ <b>Única bodega disponible para cotizar directamente.</b> Contiene repuestos fuera de garantía en stock bajo código <b>COS03262-S</b> que pueden ofrecerse al cliente sin necesidad de hacer un pedido a LG.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Bogotá</strong>
-                <p>Repuestos destinados exclusivamente a <b>garantías</b>, código <b>CO000553</b>. <b>No se deben tocar</b> para cotizaciones o ventas.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Safety Stock</strong>
-                <p>Stock de respaldo bajo código <b>CO000553</b>. <b>No se utiliza</b> para cotizaciones ni ventas directas.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Facturados</strong>
-                <p>Repuestos que ya fueron <b>pagados por un cliente</b>, código <b>COS03262-S</b>. Están reservados y <b>no están disponibles</b> para nuevas cotizaciones.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Ventas</strong>
-                <p>Repuestos clasificados como RV que ya tienen un cliente asignado, código <b>COS03262-S</b>. Ya están vendidos y <b>no pueden ofrecerse</b> a otro cliente.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Cundinamarca</strong>
-                <p>Repuestos bajo código <b>COS02186</b> para operación fuera de Bogotá. Corresponden a órdenes o clientes ya asignados en esa región; <b>no se usan para cotizaciones en Bogotá</b>.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Mal Solicitados</strong>
-                <p>Repuestos pedidos incorrectamente. Pueden reutilizarse en otros servicios, pero requieren validación previa.</p>
-            </div>
-            <div class="warehouse-card external">
-                <strong>Electro Service Usados</strong>
-                <p>Partes retornadas para prueba o descarte. Funcionamiento <b>no garantizado</b>; no deben ofrecerse como nuevos.</p>
-            </div>
+            <div class="warehouse-card available"><strong>Electro Service Stock</strong><p>⭐ <b>Única bodega para cotizar directamente.</b> Código COS03262-S.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Bogotá</strong><p>Solo garantías (CO000553). NO para cotizaciones.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Safety Stock</strong><p>Stock de respaldo (CO000553). NO para ventas directas.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Facturados</strong><p>Ya pagados por otro cliente. NO disponibles.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Ventas</strong><p>Ya vendidos y asignados. NO pueden ofrecerse.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Cundinamarca</strong><p>Operación fuera de Bogotá (COS02186). NO usar en Bogotá.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Mal Solicitados</strong><p>Pedidos incorrectamente. Requieren validación previa.</p></div>
+            <div class="warehouse-card external"><strong>Electro Service Usados</strong><p>Partes retornadas. NO ofrecer como nuevas.</p></div>
         </div>
-
-        <div class="warning-card-box">
-            <strong>📢 Importante — Tarjetas Electrónicas:</strong> Si el repuesto requerido es una tarjeta electrónica y debe pedirse a LG, es obligatorio adjuntar la <b>foto</b> y el <b>número de parte exacto</b> al momento de gestionar la solicitud. Sin esta información no se procesará el pedido.
+        <div class="warning-box">
+            <strong>📢 Tarjetas Electrónicas:</strong> Si el repuesto es una tarjeta electrónica y debe pedirse a LG, adjunte obligatoriamente la <b>foto</b> y el <b>número de parte exacto</b>.
         </div>
     </div>
 
 </div>
 
 
-<!-- ============================================= -->
-<!-- PROCEDIMIENTO 2: COTIZACIÓN Y PEDIDO          -->
-<!-- ============================================= -->
+<!-- SECCIÓN 2 -->
 <div class="section-header">
-    <div class="section-title vinotinto">
-        <span class="section-badge">2</span>
-        Procedimiento 2: Cotización y Pedido de Repuestos — GSFS y SAMM
-    </div>
-    <div class="section-note vinotinto-note">
-        Realice este procedimiento <strong>únicamente si el repuesto no está disponible en nuestras bodegas internas</strong> (según el Paso 6 anterior). Si ya existe en bodega, puede cotizarlo directamente sin pasar por GSFS ni generar un PON.
-    </div>
+    <div class="section-title vinotinto"><span class="section-badge">2</span>Procedimiento 2: Cotización en GSFS</div>
+    <div class="section-note vinotinto">Este procedimiento aplica para los <strong>3 canales</strong>. Es el proceso central de búsqueda, validación de stock LG y cálculo del precio de venta.</div>
 </div>
 
 <div class="container">
 
     <div class="step-card">
-        <h2>Clasificación Inicial del Requerimiento</h2>
-        <p>Este manual describe el proceso para gestionar repuestos, desde la búsqueda inicial hasta la legalización del pedido en el sistema. Antes de comenzar, identifique el tipo de requerimiento:</p>
-        
-        <div class="payment-grid">
-            <div class="payment-card">
-                <strong class="highlight">Visita Técnica (OTT)</strong><br>
-                Requiere modelo y número de parte (suministrado por el técnico mediante foto o texto).
-            </div>
-            <div class="payment-card">
-                <strong class="highlight">Venta</strong><br>
-                El cliente puede enviar el número de parte o solo el modelo del producto.
-            </div>
+        <h2><span class="step-number">1</span>Acceso a GSFS</h2>
+        <p>Acceda a <span class="highlight">CS PORTAL</span> con el código <strong>COS03262-S</strong>, sus credenciales y la clave OTP. Haga clic en <strong>GSFS</strong>.</p>
+        <div class="image-group">
+            <div class="image-container"><img src="Paso 2.png" alt="Login CS Portal"></div>
+            <div class="image-container"><img src="Paso 3.png" alt="Botón GSFS"></div>
         </div>
+        <p>Navegue a: <span class="highlight">Repuestos → Gestión de repuestos</span>.</p>
+        <div class="image-container"><img src="Paso 4.png" alt="Gestión de repuestos"></div>
     </div>
 
     <div class="step-card">
-        <h2><span class="step-number">1</span>Búsqueda y Validación en GSFS</h2>
-        <p>Acceda a <span class="highlight">CS PORTAL</span> e ingrese al código de facturados (COS03262-S) con sus credenciales y clave OTP. Luego, haga clic en el botón <strong>GSFS</strong>.</p>
-        
-        <div class="image-group">
-            <div class="image-container"><img src="Paso 2.png" alt="Paso 2"></div>
-            <div class="image-container"><img src="Paso 3.png" alt="Paso 3"></div>
-        </div>
-
-        <p>Navegue a: <span class="highlight">Repuestos > Gestión de repuestos</span>. En "Condición de búsqueda", elija su método:</p>
-        <div class="image-container"><img src="Paso 4.png" alt="Ruta Gestión"></div>
-
+        <h2><span class="step-number">2</span>Búsqueda del Repuesto</h2>
         <h3>Opción A: Por Número de Parte</h3>
         <p>Ingrese el código, clic en la lupa, seleccione la casilla y clic en <strong>Consulta</strong>.</p>
-        <div class="image-container"><img src="Paso 6.png" alt="Búsqueda por Parte"></div>
+        <div class="image-container"><img src="Paso 6.png" alt="Búsqueda por número de parte"></div>
 
-        <h3>Opción B: Por Modelo (Uso de Despiece)</h3>
-        <p>Seleccione <strong>By Model</strong> e ingrese el modelo. Use la herramienta "Despiece" para abrir el diagrama. Identifique la pieza, haga clic en la flecha para obtener el número de parte y cópielo.</p>
+        <h3>Opción B: Por Modelo — Uso de Despiece</h3>
+        <p>Seleccione <strong>By Model</strong>, ingrese el modelo, abra el <strong>Despiece</strong>, identifique la pieza y haga clic en la flecha para obtener el número de parte.</p>
         <div class="image-group">
-            <div class="image-container"><img src="Paso 9.5.png" alt="Paso 9.5"></div>
-            <div class="image-container"><img src="Paso 10.png" alt="Paso 10"></div>
-            <div class="image-container"><img src="Paso 11.png" alt="Paso 11"></div>
-            <div class="image-container"><img src="Paso 12.png" alt="Paso 12"></div>
-            <div class="image-container"><img src="Paso 13.png" alt="Paso 13"></div>
+            <div class="image-container"><img src="Paso 9.5.png" alt="By Model"></div>
+            <div class="image-container"><img src="Paso 10.png" alt="Despiece"></div>
+            <div class="image-container"><img src="Paso 11.png" alt="Diagrama"></div>
+            <div class="image-container"><img src="Paso 12.png" alt="Selección pieza"></div>
+            <div class="image-container"><img src="Paso 13.png" alt="Número de parte"></div>
         </div>
     </div>
 
     <div class="step-card">
-        <h2><span class="step-number">2</span>Análisis de Disponibilidad</h2>
+        <h2><span class="step-number">3</span>Análisis de Disponibilidad LG</h2>
         <div class="alert-box">
-            <strong>ESTADO LG STOCK:</strong> Revise la columna LG Stock. Si indica <span class="highlight">"No"</span>, el repuesto está descontinuado. Informe de inmediato al cliente.
+            <strong>ESTADO LG STOCK:</strong> Si la columna <span class="highlight">LG Stock</span> indica <span class="highlight">"No"</span>, el repuesto está <strong>descontinuado</strong>. Informe de inmediato.
         </div>
-        <div class="image-container"><img src="Paso 9.png" alt="Paso 9"></div>
-
-        <p>Si hay stock, haga clic en el botón <strong>"+" (Stock Info)</strong> junto a Stock Info para ver las bodegas:</p>
-        <div class="image-container"><img src="Paso 8.png" alt="Paso 8"></div>
-
+        <div class="image-container"><img src="Paso 9.png" alt="Columna LG Stock"></div>
+        <p>Si hay stock, haga clic en <strong>"+" (Stock Info)</strong> para ver bodegas:</p>
+        <div class="image-container"><img src="Paso 8.png" alt="Stock Info bodegas LG"></div>
         <table>
-            <tr>
-                <th>Bodega</th>
-                <th>Estado</th>
-            </tr>
-            <tr>
-                <td style="color:green; font-weight:bold;">Bodega NA6</td>
-                <td>Entrega Rápida / Inmediata</td>
-            </tr>
-            <tr>
-                <td>Otras Bodegas</td>
-                <td>Contactar a LG para validar llegada (Importación).</td>
-            </tr>
+            <tr><th>Bodega</th><th>Estado</th></tr>
+            <tr><td style="color:green;font-weight:bold;">Bodega NA6</td><td>✅ Entrega rápida / Inmediata</td></tr>
+            <tr><td>Otras Bodegas</td><td>📦 Contactar a LG para validar llegada (Importación)</td></tr>
         </table>
     </div>
 
     <div class="step-card">
-        <h2><span class="step-number">3</span>Cálculo de Precios y Cotización</h2>
-        <p>Una vez identificada la parte disponible, haga clic en <span class="highlight">Aplicar Precio</span>.</p>
-        <div class="image-container"><img src="Paso 14.png" alt="Paso 14"></div>
-
+        <h2><span class="step-number">4</span>Cálculo del Precio</h2>
+        <p>Haga clic en <span class="highlight">Aplicar Precio</span>.</p>
+        <div class="image-container"><img src="Paso 14.png" alt="Aplicar Precio"></div>
         <div class="info-box">
-            <strong>Determinación del Precio de Compra:</strong><br>
-            * Si existen repuestos intercambiables/compatibles, tome el <b>precio mayor</b> de la columna "Precio de compra", siempre y cuando en LG Stock diga "SÍ".<br>
-            * Si no hay más opciones, tome el precio de compra de la parte consultada.
+            <strong>¿Cuál precio tomar?</strong><br>
+            • Repuestos intercambiables: tome el <b>precio mayor</b> donde LG Stock diga "SÍ".<br>
+            • Sin alternativas: tome el precio de la parte consultada.
         </div>
-
-        <h3>Liquidación en Web de Cotizaciones</h3>
-        <p>Ingrese a la página de cotizaciones LG y seleccione el Tipo de Cliente (OTT, Venta Público, Mayorista, etc.):</p>
-        <a href="https://tarifasactuales.netlify.app/" target="_blank" class="link-btn">Ir a Calculadora de Repuestos</a>
-        <div class="image-container"><img src="Paso 15.png" alt="Paso 15"></div>
-        <p>Ingrese el precio de compra y clic en <b>Calcular</b>.</p>
+        <h3>Calcular precio de venta</h3>
+        <a href="https://tarifasactuales.netlify.app/" target="_blank" class="link-btn">🧮 Ir a Calculadora de Repuestos</a>
+        <div class="image-container"><img src="Paso 15.png" alt="Calculadora de tarifas"></div>
+        <div class="payment-grid">
+            <div class="payment-card"><strong class="highlight">Canal 1 y 2 (OTT)</strong><br>Tipo: <strong>OTT</strong></div>
+            <div class="payment-card"><strong class="highlight">Canal 3 (Venta)</strong><br>Tipo: <strong>Venta Público</strong></div>
+        </div>
+        <p>Ingrese el precio de compra, clic en <b>Calcular</b> y anote el resultado.</p>
     </div>
 
-    <div class="step-card">
-        <h2><span class="step-number">4</span>Legalización y Pedido (PON)</h2>
-        <p>Cuando el cliente acepte, debe enviar el comprobante de pago: <b>50% para OTT</b> o <b>100% para Venta</b>. Tras el aval legal, en GSFS añada el repuesto dando doble clic y configure:</p>
-        <ul>
-            <li><strong>No. Pedido Cliente:</strong> Escriba la orden o la requisición (Ej: OTT-43432 o RV.77553).</li>
-            <li><strong>Reserved Days:</strong> Seleccione 30 days (Importante).</li>
-        </ul>
-        <div class="alert-box"><strong>Nota:</strong> Se debe hacer un pedido individual por cada repuesto.</div>
-        <div class="image-group">
-            <div class="image-container"><img src="Paso 17.png" alt="Paso 17"></div>
-            <div class="image-container"><img src="Paso 18.png" alt="Paso 18"></div>
+</div>
+
+
+<!-- SECCIÓN 3 -->
+<div class="section-header">
+    <div class="section-title verde"><span class="section-badge">3</span>Procedimiento 3: Gestión del Abono</div>
+    <div class="section-note verde">Una vez el cliente acepte la cotización, debe enviar un comprobante de pago. El porcentaje varía según el canal.</div>
+</div>
+
+<div class="container">
+
+    <div class="step-card verde">
+        <h2>Porcentajes de Abono por Canal</h2>
+        <div class="abono-grid">
+            <div class="abono-card a50"><span class="pct">50%</span><span class="label">Canal 1</span><p>Cotización en línea (técnico en campo)</p></div>
+            <div class="abono-card a70"><span class="pct">70%</span><span class="label">Canal 2</span><p>Cotización a cliente (reporte en SAMM)</p></div>
+            <div class="abono-card a100"><span class="pct">100%</span><span class="label">Canal 3</span><p>Venta directa por bot WhatsApp</p></div>
         </div>
-        <p>Al dar clic en <strong>Enviar</strong>, el sistema generará el número de pedido <strong>PON</strong>.</p>
     </div>
 
-    <div class="step-card">
-        <h2><span class="step-number">5</span>Registro Final en SAMM</h2>
-        
-        <div class="info-box">
-            <strong>Seleccione su flujo de trabajo:</strong> Dependiendo de si es una Visita Técnica o una Venta Directa, el inicio del registro varía.
-        </div>
+    <div class="step-card verde">
+        <h2><span class="step-number">1</span>Recibir y Gestionar el Comprobante</h2>
+        <h3>Si el cliente está en el bot de WhatsApp (Canal 2 y Canal 3)</h3>
+        <p>Agréguele la etiqueta <span class="highlight">"espera comprobante"</span> en WiseCX para identificarlo mientras aguarda el pago.</p>
+        <h3>Si la comunicación es por WhatsApp directo (Canal 1)</h3>
+        <p>Esté pendiente del chat con el técnico. Él le avisará cuando el cliente haya pagado.</p>
+    </div>
 
-        <h3>Sub-paso A: Si es una Visita Técnica (OTT)</h3>
-        <p>Busque la orden en el sistema SAMM:</p>
-        <div class="image-container"><img src="Paso 20.png" alt="Paso 20"></div>
-        <p>Cambie el estado a <strong>"Pendiente por solicitar repuestos"</strong> y haga clic en <strong>Requisición</strong>.</p>
-        <div class="image-group">
-            <div class="image-container"><img src="Paso 21.png" alt="Paso 21"></div>
-            <div class="image-container"><img src="Paso 22.png" alt="Paso 22"></div>
-        </div>
+    <div class="step-card verde">
+        <h2><span class="step-number">2</span>Enviar al Área Legal y Confirmar al Cliente</h2>
+        <p>Al recibir el comprobante:</p>
+        <ol class="pasos">
+            <li>Pase el comprobante al <strong>área legal</strong> para su validación.</li>
+            <li>Envíe al cliente la plantilla <span class="highlight">"confirmación abono"</span> en WiseCX.</li>
+        </ol>
+    </div>
 
-        <h3>Sub-paso B: Si es una Venta Directa (Nuevo Registro)</h3>
-        <p>1. Abrimos SAMM y nos dirigimos al módulo correspondiente.</p>
-        <div class="image-container"><img src="ss 1.png" alt="ss 1"></div>
-        
-        <p>2. Vamos al botón de <b>lupa</b> en el recuadro de requisiciones.</p>
-        <div class="image-container"><img src="ss 2.png" alt="ss 2"></div>
-        
-        <p>3. Hacemos clic en el botón <b>Nuevo</b>.</p>
-        <div class="image-container"><img src="ss 3.png" alt="ss 3"></div>
-        
-        <p>4. Se abrirá el formulario de creación.</p>
-        <div class="image-container"><img src="ss 4.png" alt="ss 4"></div>
-        
-        <p>5. Nos dirigimos al espacio de selección y elegimos la opción <b>Requisición de Venta</b>.</p>
-        <div class="image-container"><img src="ss 5.png" alt="ss 5"></div>
-        
-        <p>6. Diligenciamos los datos del cliente (como si fuera una orden de servicio normal) y procedemos con el registro de los repuestos.</p>
+    <div class="step-card verde">
+        <h2><span class="step-number">3</span>Esperar Visto Bueno del Área Contable</h2>
+        <p>Espere que el <strong>área contable confirme</strong> que el pago está validado antes de proceder al pedido.</p>
+        <div class="alert-box"><strong>⚠ No realice el pedido en GSFS hasta recibir la confirmación contable.</strong></div>
+    </div>
 
-        <hr style="margin: 2rem 0; border: 0; border-top: 1px solid #eee;">
+</div>
 
-        <h3>Continuación del Registro (Ambos casos)</h3>
-        <p>Una vez dentro de la requisición (ya sea desde OTT o Venta), proceda con los siguientes pasos:</p>
-        
-        <h4>1. Gestión de Observaciones y Disponibilidad</h4>
-        <p>Haga clic en el <strong>triángulo azul</strong> al lado del espacio de observaciones para seleccionar la plantilla de tiempo de despacho.</p>
-        <div class="image-container"><img src="Paso 30.png" alt="Plantilla Disponibilidad"></div>
 
-        <p>En el cuadro de observaciones, registre el identificador:</p>
+<!-- SECCIÓN 4 -->
+<div class="section-header">
+    <div class="section-title morado"><span class="section-badge">4</span>Procedimiento 4: Pedido en GSFS (PON) y Registro en SAMM</div>
+    <div class="section-note morado">Con la confirmación contable en mano, proceda a generar el pedido oficial en GSFS y registrarlo en SAMM.</div>
+</div>
+
+<div class="container">
+
+    <div class="step-card morado">
+        <h2><span class="step-number">1</span>Generar el Pedido PON en GSFS</h2>
+        <p>Agregue el repuesto dando <strong>doble clic</strong> y configure:</p>
         <ul>
-            <li><strong>Múltiples repuestos:</strong> [Número de Parte] - [Número de Pedido PON].</li>
-            <li><strong>Un solo repuesto:</strong> Escriba únicamente el número de pedido <b>PON</b>.</li>
+            <li><strong>No. Pedido Cliente:</strong> Ej: OTT-43432 o RV.77553</li>
+            <li><strong>Reserved Days:</strong> <strong>30 days</strong></li>
         </ul>
-        <div class="image-container"><img src="Paso 29.png" alt="Registro de PON"></div>
-
-        <h4>2. Carga de Repuestos (Items)</h4>
-        <p>Haga clic en el botón <strong>Item</strong> y cargue el repuesto con la lupa.</p>
+        <div class="alert-box"><strong>⚠ Nota:</strong> Un pedido individual por cada repuesto. No agrupe varios en uno.</div>
         <div class="image-group">
-            <div class="image-container"><img src="Paso 24.png" alt="Paso 24"></div>
-            <div class="image-container"><img src="Paso 25.png" alt="Paso 25"></div>
+            <div class="image-container"><img src="Paso 17.png" alt="Configuración pedido GSFS"></div>
+            <div class="image-container"><img src="Paso 18.png" alt="Reserved Days 30"></div>
+        </div>
+        <p>Al hacer clic en <strong>Enviar</strong> se generará el número <strong>PON</strong>. Anótelo.</p>
+    </div>
+
+    <div class="step-card morado">
+        <h2><span class="step-number">2</span>Registro en SAMM</h2>
+        <div class="info-box"><strong>El flujo varía según el canal:</strong> Canales 1 y 2 usan la OTT existente. Canal 3 requiere crear una RV nueva.</div>
+
+        <h3>Canal 1 y 2 — Desde la OTT existente</h3>
+        <p>Cambie el estado a <span class="highlight">"Pendiente por solicitar repuestos"</span> y haga clic en <strong>Requisición</strong>.</p>
+        <div class="image-group">
+            <div class="image-container"><img src="Paso 20.png" alt="Buscar OTT en SAMM"></div>
+            <div class="image-container"><img src="Paso 21.png" alt="Estado pendiente repuestos"></div>
+            <div class="image-container"><img src="Paso 22.png" alt="Botón Requisición"></div>
         </div>
 
-        <p>Ajuste la cantidad (<span class="highlight">Can. Plan</span>) y el precio de venta antes de IVA (<span class="highlight">Vunit Plan</span>).</p>
+        <h3>Canal 3 — Crear Requisición de Venta (RV) nueva</h3>
+        <p>1. Diríjase al módulo de requisiciones en SAMM.</p>
+        <div class="image-container"><img src="ss 1.png" alt="Módulo SAMM"></div>
+        <p>2. Haga clic en el botón <strong>lupa</strong>.</p>
+        <div class="image-container"><img src="ss 2.png" alt="Lupa requisiciones"></div>
+        <p>3. Haga clic en <strong>Nuevo</strong>.</p>
+        <div class="image-container"><img src="ss 3.png" alt="Botón Nuevo"></div>
+        <p>4. Se abrirá el formulario.</p>
+        <div class="image-container"><img src="ss 4.png" alt="Formulario de creación"></div>
+        <p>5. Elija <span class="highlight">Requisición de Venta</span>.</p>
+        <div class="image-container"><img src="ss 5.png" alt="Requisición de Venta"></div>
+        <p>6. Diligencie los datos del cliente como en una orden de servicio normal.</p>
+    </div>
+
+    <div class="step-card morado">
+        <h2><span class="step-number">3</span>Completar la Requisición (Aplica para los 3 canales)</h2>
+
+        <h3>Observaciones y plantilla de tiempo</h3>
+        <p>Haga clic en el <strong>triángulo azul</strong> al lado de observaciones para insertar la plantilla de tiempo de despacho.</p>
+        <div class="image-container"><img src="Paso 30.png" alt="Plantilla disponibilidad"></div>
+        <p>Registre el número PON en observaciones:</p>
+        <ul>
+            <li><strong>Un repuesto:</strong> Escriba únicamente el número PON.</li>
+            <li><strong>Varios repuestos:</strong> [Número de Parte] — [PON] por cada uno.</li>
+        </ul>
+        <div class="image-container"><img src="Paso 29.png" alt="Registro PON"></div>
+
+        <h3>Cargar los repuestos</h3>
+        <p>Haga clic en <strong>Item</strong> y busque el repuesto con la lupa.</p>
         <div class="image-group">
-            <div class="image-container"><img src="Paso 26.png" alt="Paso 26"></div>
-            <div class="image-container"><img src="Paso 27.png" alt="Paso 27"></div>
+            <div class="image-container"><img src="Paso 24.png" alt="Botón Item"></div>
+            <div class="image-container"><img src="Paso 25.png" alt="Buscar repuesto lupa"></div>
+        </div>
+        <p>Ajuste <span class="highlight">Can. Plan</span> (cantidad) y <span class="highlight">Vunit Plan</span> (precio sin IVA).</p>
+        <div class="image-group">
+            <div class="image-container"><img src="Paso 26.png" alt="Cantidad"></div>
+            <div class="image-container"><img src="Paso 27.png" alt="Valor unitario"></div>
         </div>
 
-        <p style="text-align: center; font-weight: bold; color: var(--verde-exito); border: 2px solid var(--verde-exito); padding: 10px; border-radius: 5px;">
-            FINALICE CAMBIANDO EL ESTADO A: "Repuestos han sido solicitados"
-        </p>
+        <div class="success-box">FINALICE CAMBIANDO EL ESTADO A: "Repuestos han sido solicitados"</div>
     </div>
 
 </div>
 
 <footer>
     <p>&copy; 2026 ELECTRO SERVICE S.A. | Manual Operativo de Repuestos LG</p>
-    <p style="font-size: 0.8rem; opacity: 0.7;">Documento de uso interno confidencial</p>
+    <small>Documento de uso interno confidencial</small>
 </footer>
 
 <script>
     const modal = document.getElementById('modal-zoom');
     const imgAmpliada = document.getElementById('img-ampliada');
-    const imagenes = document.querySelectorAll('img:not(#img-ampliada)');
-
-    imagenes.forEach(imagen => {
-        imagen.addEventListener('click', () => {
+    document.querySelectorAll('img:not(#img-ampliada)').forEach(img => {
+        img.addEventListener('click', () => {
             modal.style.display = 'flex';
-            imgAmpliada.src = imagen.src;
+            imgAmpliada.src = img.src;
         });
     });
 </script>
-
 </body>
 </html>
