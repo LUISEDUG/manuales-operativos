@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual: Creación de Orden de Servicio — Electro Service S.A.</title>
+    <style>
+        :root {
+            --vinotinto: #a50034;
+            --negro: #212121;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+            --verde-exito: #2e7d32;
+            --azul: #1565c0;
+            --morado: #5c007a;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.65;
+            color: var(--negro);
+            background-color: var(--gris-claro);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ══════════════ HEADER ══════════════ */
+        header {
+            background-color: var(--vinotinto);
+            color: var(--blanco);
+            padding: 2.5rem 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+        }
+        header h1 {
+            margin: 0 0 0.4rem 0;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        header p {
+            margin: 0;
+            opacity: 0.85;
+            font-size: 0.98rem;
+        }
+
+        /* ══════════════ BARRA DE FASES ══════════════ */
+        .phases-bar {
+            background: #181818;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.85rem 1rem;
+            gap: 0;
+        }
+        .phase-step {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 0.55rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+        .phase-step.f1 { background: var(--azul);       color: #fff; }
+        .phase-step.f2 { background: var(--vinotinto);  color: #fff; }
+        .phase-step.f3 { background: var(--verde-exito); color: #fff; }
+        .phase-step .num {
+            background: rgba(255,255,255,0.22);
+            border-radius: 50%;
+            width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .phase-arrow {
+            color: #ffd54f;
+            font-size: 1.3rem;
+            padding: 0 0.5rem;
+            font-weight: bold;
+        }
+
+        /* ══════════════ AVISO SUPERIOR ══════════════ */
+        .top-notice {
+            background: var(--negro);
+            color: #ffd54f;
+            text-align: center;
+            padding: 0.85rem 1rem;
+            font-size: 0.88rem;
+        }
+        .top-notice kbd {
+            background: #333; border: 1px solid #555;
+            color: #fff; border-radius: 3px;
+            padding: 1px 6px; font-size: 0.82rem;
+        }
+
+        /* ══════════════ SECTION HEADER ══════════════ */
+        .section-header {
+            max-width: 980px;
+            margin: 2.8rem auto 0;
+            padding: 0 1rem;
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 1rem 1.6rem;
+            border-radius: 8px;
+            color: var(--blanco);
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .section-title.azul      { background: var(--azul); }
+        .section-title.vinotinto { background: var(--vinotinto); }
+        .section-title.verde     { background: var(--verde-exito); }
+
+        .section-badge {
+            background: rgba(255,255,255,0.22);
+            border-radius: 50%;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.05rem; font-weight: 800; flex-shrink: 0;
+        }
+        .section-note {
+            background: var(--blanco);
+            border-left: 5px solid var(--azul);
+            padding: 0.85rem 1.1rem;
+            margin-top: 0.7rem;
+            border-radius: 0 6px 6px 0;
+            font-size: 0.95rem;
+        }
+        .section-note.vinotinto { border-left-color: var(--vinotinto); }
+        .section-note.verde     { border-left-color: var(--verde-exito); }
+
+        /* ══════════════ CONTAINER ══════════════ */
+        .container {
+            max-width: 980px;
+            margin: 1.5rem auto 2rem;
+            padding: 0 1rem;
+        }
+
+        /* ══════════════ STEP CARDS ══════════════ */
+        .step-card {
+            background: var(--blanco);
+            border-left: 6px solid var(--vinotinto);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .step-card.azul  { border-left-color: var(--azul); }
+        .step-card.verde { border-left-color: var(--verde-exito); }
+
+        .step-card h2 {
+            margin: 0 0 1rem 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.7rem;
+            display: flex;
+            align-items: center;
+            gap: 0;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            color: var(--vinotinto);
+        }
+        .step-card.azul  h2 { color: var(--azul); }
+        .step-card.verde h2 { color: var(--verde-exito); }
+
+        .step-number {
+            background: var(--negro);
+            color: var(--blanco);
+            width: 32px; height: 32px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 50%;
+            margin-right: 14px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-card h3 {
+            color: var(--negro);
+            border-left: 4px solid var(--vinotinto);
+            padding-left: 10px;
+            margin: 1.6rem 0 0.5rem;
+            font-size: 1rem;
+        }
+        .step-card.azul  h3 { border-left-color: var(--azul); }
+        .step-card.verde h3 { border-left-color: var(--verde-exito); }
+
+        .highlight { font-weight: 700; color: var(--vinotinto); }
+
+        /* ══════════════ IMÁGENES ══════════════ */
+        .img-wrap {
+            text-align: center;
+            margin: 1.3rem 0;
+            background: #fafafa;
+            padding: 10px;
+            border: 1px solid #e8e8e8;
+            border-radius: 6px;
+        }
+        .img-wrap img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: zoom-in;
+            transition: transform 0.25s;
+            display: block;
+            margin: 0 auto;
+        }
+        .img-wrap img:hover { transform: scale(1.015); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+        .img-wrap figcaption {
+            font-size: 0.78rem;
+            color: #888;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .img-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin: 1.3rem 0;
+        }
+        .img-row .img-wrap { flex: 1 1 260px; margin: 0; }
+
+        /* ══════════════ CAJAS ══════════════ */
+        .info-box {
+            background: #f0f7ff;
+            border-left: 5px solid var(--azul);
+            padding: 1rem 1.1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+            font-size: 0.94rem;
+        }
+        .alert-box {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-left: 5px solid #c62828;
+            padding: 1rem 1.1rem;
+            border-radius: 0 5px 5px 0;
+            margin: 1rem 0;
+            font-size: 0.94rem;
+        }
+        .success-box {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--verde-exito);
+            border: 2px solid var(--verde-exito);
+            background: #f0fff4;
+            padding: 14px;
+            border-radius: 6px;
+            margin: 1.5rem 0 0;
+        }
+        .branch-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 1rem 0;
+        }
+        .branch-card {
+            border-radius: 8px;
+            padding: 1rem 1.1rem;
+            font-size: 0.9rem;
+        }
+        .branch-card.si {
+            background: #f0fff4;
+            border: 2px solid var(--verde-exito);
+        }
+        .branch-card.si strong { color: var(--verde-exito); display: block; margin-bottom: 4px; }
+        .branch-card.no {
+            background: #fff0f3;
+            border: 2px solid var(--vinotinto);
+        }
+        .branch-card.no strong { color: var(--vinotinto); display: block; margin-bottom: 4px; }
+
+        /* ══════════════ TABLA ══════════════ */
+        .fields-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.91rem;
+        }
+        .fields-table th {
+            background: var(--negro);
+            color: white;
+            padding: 10px 14px;
+            text-align: left;
+        }
+        .fields-table td { padding: 9px 14px; border: 1px solid #e0e0e0; }
+        .fields-table tr:nth-child(even) td { background: #fafafa; }
+        .fields-table .val { font-weight: 700; color: var(--vinotinto); }
+
+        /* ══════════════ BADGES / KBD ══════════════ */
+        .badge {
+            display: inline-block;
+            background: var(--vinotinto);
+            color: white;
+            padding: 0.12rem 0.55rem;
+            border-radius: 4px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            vertical-align: middle;
+        }
+        .badge.azul  { background: var(--azul); }
+        .badge.verde { background: var(--verde-exito); }
+        .badge.dark  { background: var(--negro); }
+
+        kbd {
+            background: #eee;
+            border: 1px solid #bbb;
+            border-radius: 3px;
+            padding: 1px 7px;
+            font-size: 0.83rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ══════════════ MODAL ZOOM ══════════════ */
+        #modal-zoom {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        #modal-zoom img {
+            max-width: 92%;
+            max-height: 92%;
+            border: 3px solid white;
+            border-radius: 4px;
+            cursor: zoom-out;
+        }
+
+        /* ══════════════ FOOTER ══════════════ */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: var(--negro);
+            color: var(--blanco);
+            margin-top: 2rem;
+        }
+        footer small { opacity: 0.45; font-size: 0.8rem; }
+
+        @media (max-width: 600px) {
+            .branch-box { grid-template-columns: 1fr; }
+            .img-row    { flex-direction: column; }
+            header h1   { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── MODAL ZOOM ── -->
+<div id="modal-zoom" onclick="this.style.display='none'">
+    <img id="img-ampliada" src="" alt="Zoom">
+</div>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header>
+    <h1>Manual: Creación de Orden de Servicio</h1>
+    <p>Proceso estructurado para registro de solicitudes y Órdenes de Trabajo en SAMM</p>
+</header>
+
+<!-- ── BARRA DE FASES ── -->
+<div class="phases-bar">
+    <div class="phase-step f1"><span class="num">1</span> Apertura de Solicitud</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f2"><span class="num">2</span> Registro de Cliente</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f3"><span class="num">3</span> Equipo y Orden de Trabajo</div>
+</div>
+
+<!-- ── AVISO ── -->
+<div class="top-notice">
+    <strong>⚠ IMPORTANTE:</strong> Si un campo tiene una <strong>lupa</strong> al lado, escriba el dato y haga clic en ella para buscar.
+    Use <kbd>Enter</kbd> para validar campos de identificación.
+</div>
+
+
+<!-- ══════════════════════════════════════════
+     FASE 1: APERTURA DE SOLICITUD
+══════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title azul">
+        <span class="section-badge">1</span>
+        Fase 1 — Apertura de Solicitud
+    </div>
+    <div class="section-note">
+        Todo comienza desde la <strong>página principal de SAMM</strong>.
+        Primero se crea la <em>Solicitud de Servicio</em>; a partir de ella se generará la Orden de Trabajo (OT).
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- PASO 1 -->
+    <div class="step-card azul">
+        <h2><span class="step-number">1</span>Inicio en Página Principal</h2>
+        <p>
+            Diríjase al recuadro <span class="highlight">"Mis Solicitudes"</span> en la página principal
+            y haga clic en el botón <span class="badge azul">+ Nuevo</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.1.png" alt="Mis Solicitudes – Botón Nuevo">
+            <figcaption>Página principal → recuadro "Mis Solicitudes" → botón Nuevo</figcaption>
+        </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div class="step-card azul">
+        <h2><span class="step-number">2</span>Tipo de Documento</h2>
+        <p>
+            Será dirigido a un nuevo formulario.
+            En el menú desplegable de <span class="highlight">Documento</span>
+            seleccione <strong>"Solicitud de Servicio"</strong>.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.2.png" alt="Menú Documento → Solicitud de Servicio">
+            <figcaption>Campo Documento → seleccionar "Solicitud de Servicio"</figcaption>
+        </div>
+    </div>
+
+    <!-- PASO 3 -->
+    <div class="step-card azul">
+        <h2><span class="step-number">3</span>Prioridad</h2>
+        <p>
+            En el campo <span class="highlight">Prioridad</span> seleccione
+            cualquiera de las opciones disponibles según el caso.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.3.png" alt="Campo Prioridad">
+            <figcaption>Seleccione la prioridad según el tipo de servicio</figcaption>
+        </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div class="step-card azul">
+        <h2><span class="step-number">4</span>Identificación del Cliente</h2>
+        <p>
+            En el campo <span class="highlight">Cliente</span> escriba
+            el número de <strong>cédula o NIT</strong> del cliente y presione <kbd>Enter</kbd>.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.4.png" alt="Campo Cliente – cédula o NIT">
+            <figcaption>Ingrese el número de identificación y presione Enter</figcaption>
+        </div>
+
+        <!-- BIFURCACIÓN -->
+        <div class="branch-box" style="margin-top:1.2rem;">
+            <div class="branch-card si">
+                <strong>✅ Cliente existente</strong>
+                Sus datos se cargan automáticamente.<br>
+                Continúe en la <strong>Fase 3</strong>.
+            </div>
+            <div class="branch-card no">
+                <strong>⚠ Cliente nuevo</strong>
+                Aparecerá un menú emergente.<br>
+                Haga clic en <span class="badge">Nuevo</span> y continúe en la <strong>Fase 2</strong>.
+            </div>
+        </div>
+
+        <div class="img-wrap" style="margin-top:1rem;">
+            <img src="MC 1.5.png" alt="Menú emergente – Botón Nuevo para cliente nuevo">
+            <figcaption>Menú emergente cuando el cliente no existe en el sistema</figcaption>
+        </div>
+    </div>
+
+</div><!-- /container fase 1 -->
+
+
+<!-- ══════════════════════════════════════════
+     FASE 2: REGISTRO DE CLIENTE NUEVO
+══════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title vinotinto">
+        <span class="section-badge">2</span>
+        Fase 2 — Registro de Cliente Nuevo
+    </div>
+    <div class="section-note vinotinto">
+        Solo si el cliente <strong>no existe</strong> en el sistema.
+        Si ya estaba registrado y sus datos se cargaron solos, pase directamente a la <strong>Fase 3</strong>.
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- PASO 5 -->
+    <div class="step-card">
+        <h2><span class="step-number">5</span>Datos del Tercero</h2>
+
+        <h3>¿Es Prospecto?</h3>
+        <p>Seleccione <strong>NO</strong>.</p>
+        <div class="img-wrap">
+            <img src="MC 1.6.png" alt="¿Es Prospecto? → NO">
+            <figcaption>Campo "¿Es Prospecto?" → NO</figcaption>
+        </div>
+
+        <h3>Nombre del Tercero</h3>
+        <p>Escriba el <strong>nombre completo</strong> del cliente.</p>
+        <div class="img-wrap">
+            <img src="MC 1.7.png" alt="Campo Tercero – nombre completo">
+            <figcaption>Campo Tercero – nombre completo del cliente</figcaption>
+        </div>
+
+        <h3>Zona (Barrio)</h3>
+        <p>
+            Escriba el nombre del barrio, presione <kbd>Enter</kbd>
+            y selecciónelo de la lista desplegable.
+        </p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="MC 1.8.png" alt="Campo Zona – escribir barrio">
+                <figcaption>Escriba el barrio y presione Enter</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="MC 1.9.png" alt="Seleccionar zona de la lista">
+                <figcaption>Seleccione la zona de la lista</figcaption>
+            </div>
+        </div>
+
+        <h3>Estado</h3>
+        <p>Seleccione <strong>Activo</strong>.</p>
+        <div class="img-wrap">
+            <img src="MC 1.10.png" alt="Estado → Activo">
+            <figcaption>Estado → Activo</figcaption>
+        </div>
+
+        <h3>Naturaleza</h3>
+        <p>Seleccione <strong>Régimen Simplificado</strong>.</p>
+        <div class="img-wrap">
+            <img src="MC 1.11.png" alt="Naturaleza → Régimen Simplificado">
+            <figcaption>Naturaleza → Régimen Simplificado</figcaption>
+        </div>
+
+        <h3>Datos Finales del Formulario</h3>
+        <p>Complete los campos restantes siguiendo esta tabla:</p>
+
+        <table class="fields-table">
+            <thead>
+                <tr><th>Campo</th><th>Valor / Instrucción</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>NIT / Cédula</td>   <td class="val">Número de identificación del cliente</td></tr>
+                <tr><td>Dirección</td>       <td class="val">Dirección completa</td></tr>
+                <tr><td>Teléfonos</td>       <td>Use <strong>//</strong> para separar múltiples números  <br><em>Ej: 3001234567 // 6011234567</em></td></tr>
+                <tr><td>Nombre Corto</td>    <td class="val">Un solo nombre + un apellido</td></tr>
+                <tr><td>Es Cliente</td>      <td class="val">SÍ</td></tr>
+                <tr><td>Demás opciones</td>  <td class="val">NO</td></tr>
+            </tbody>
+        </table>
+
+        <div class="img-wrap">
+            <img src="MC 1.12.png" alt="Formulario completo del cliente">
+            <figcaption>Vista del formulario con todos los campos completos</figcaption>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 Siguiente paso:</strong> Haga clic en <strong>Aceptar</strong>.
+            Al volver al formulario principal, <strong>digite la cédula nuevamente</strong>
+            en el campo Cliente para cargar el registro recién creado.
+        </div>
+
+        <div class="img-wrap">
+            <img src="MC 1.13.png" alt="Digitar cédula nuevamente para cargar el cliente">
+            <figcaption>Vuelva a digitar la cédula para cargar el cliente ya creado</figcaption>
+        </div>
+    </div>
+
+    <!-- PASO 6 -->
+    <div class="step-card">
+        <h2><span class="step-number">6</span>Solicitante, Departamento y Motivo</h2>
+
+        <h3>Solicitante</h3>
+        <p>
+            En el campo <span class="highlight">Solicitante</span>
+            repita el <strong>nombre corto</strong> del cliente.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.14.png" alt="Campo Solicitante">
+            <figcaption>Solicitante = nombre corto del cliente</figcaption>
+        </div>
+
+        <h3>Departamento</h3>
+        <p>Seleccione el departamento que corresponde al tipo de servicio.</p>
+        <div class="alert-box">
+            <strong>⚠ Importante:</strong> Evite seleccionar <strong>"Laboratorio"</strong> como departamento en este paso.
+        </div>
+        <div class="img-wrap">
+            <img src="MC 1.15.png" alt="Selección de Departamento">
+            <figcaption>Seleccione el departamento correcto</figcaption>
+        </div>
+
+        <h3>Motivo de la Solicitud</h3>
+        <p>Describa brevemente la falla o motivo del servicio en el campo <span class="highlight">Motivo</span>.</p>
+        <div class="img-wrap">
+            <img src="MC 1.16.png" alt="Campo Motivo de la solicitud">
+            <figcaption>Describa la falla o motivo del servicio</figcaption>
+        </div>
+    </div>
+
+</div><!-- /container fase 2 -->
+
+
+<!-- ══════════════════════════════════════════
+     FASE 3: EQUIPO Y ORDEN DE TRABAJO
+══════════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title verde">
+        <span class="section-badge">3</span>
+        Fase 3 — Registro de Equipo y Creación de OT
+    </div>
+    <div class="section-note verde">
+        Con el cliente cargado en el sistema, registre el equipo
+        y convierta la solicitud en una <strong>Orden de Trabajo (OT)</strong>.
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- PASO 7 -->
+    <div class="step-card verde">
+        <h2><span class="step-number">7</span>Configuración del Equipo</h2>
+        <p>
+            Ubique el recuadro de <span class="highlight">Equipo</span>
+            y haga clic en <span class="badge verde">+ Nuevo</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.17.png" alt="Botón Nuevo en recuadro Equipo">
+            <figcaption>Recuadro Equipo → botón Nuevo</figcaption>
+        </div>
+
+        <h3>Buscar el Modelo</h3>
+        <p>Use la <strong>lupa</strong> para buscar el modelo del equipo y selecciónelo de los resultados.</p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="MC 1.18.png" alt="Búsqueda del modelo con lupa">
+                <figcaption>Búsqueda del modelo con la lupa</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="MC 1.19.png" alt="Selección del modelo en resultados">
+                <figcaption>Seleccione el modelo de la lista</figcaption>
+            </div>
+        </div>
+
+        <h3>Generación del Serial</h3>
+        <p>Si el equipo no tiene serial registrado en el sistema, genérelo manualmente con el botón correspondiente.</p>
+        <div class="img-wrap">
+            <img src="MC 1.20.png" alt="Generación del serial del equipo">
+            <figcaption>Generar serial si el equipo no tiene uno registrado</figcaption>
+        </div>
+
+        <h3>Estado del Equipo y Confirmación</h3>
+        <p>
+            Verifique que el campo <span class="highlight">Estado Eq</span>
+            esté en <strong>Activo</strong> y haga clic en <strong>Aceptar</strong>.
+        </p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="MC 1.21.png" alt="Estado Eq → Activo">
+                <figcaption>Estado Eq → Activo</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="MC 1.22.png" alt="Clic en Aceptar">
+                <figcaption>Clic en Aceptar para confirmar el equipo</figcaption>
+            </div>
+        </div>
+        <div class="img-wrap">
+            <img src="MC 1.23.png" alt="Equipo registrado correctamente en la solicitud">
+            <figcaption>El equipo queda vinculado a la solicitud</figcaption>
+        </div>
+    </div>
+
+    <!-- PASO 8 -->
+    <div class="step-card verde">
+        <h2><span class="step-number">8</span>Conversión a Orden de Trabajo</h2>
+        <p>
+            Haga clic en el botón <span class="badge verde">OT</span>
+            ubicado en la barra superior para convertir la solicitud en una Orden de Trabajo.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.24.png" alt="Botón OT en barra superior">
+            <figcaption>Botón OT en la barra de acciones</figcaption>
+        </div>
+
+        <h3>Tipo de Servicio</h3>
+        <p>Defina el <span class="highlight">Tipo de Servicio</span> según el caso:</p>
+
+        <table class="fields-table">
+            <thead>
+                <tr><th>Código</th><th>Descripción</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="val">L0</td>  <td>Garantía sin costo</td></tr>
+                <tr><td class="val">L4</td>  <td>Servicio pagado</td></tr>
+                <tr><td class="val">L13</td> <td>Garantía especial</td></tr>
+            </tbody>
+        </table>
+
+        <div class="img-wrap">
+            <img src="MC 1.25.png" alt="Selección del Tipo de Servicio">
+            <figcaption>Seleccione el código de tipo de servicio</figcaption>
+        </div>
+
+        <h3>Prioridad / Logística</h3>
+        <p>Seleccione la modalidad de atención:</p>
+        <div class="img-wrap">
+            <img src="MC 1.26.png" alt="Modalidad de atención – Carry in, In home, etc.">
+            <figcaption>Modalidades: Carry in, In home, entre otras</figcaption>
+        </div>
+    </div>
+
+    <!-- PASO 9 -->
+    <div class="step-card verde">
+        <h2><span class="step-number">9</span>Cierre y Finalización</h2>
+
+        <h3>Fecha Compromiso</h3>
+        <p>Ajuste la <span class="highlight">Fecha Compromiso</span> de entrega del equipo al cliente.</p>
+        <div class="img-wrap">
+            <img src="MC 1.27.png" alt="Fecha Compromiso de entrega">
+            <figcaption>Defina la fecha de entrega comprometida</figcaption>
+        </div>
+
+        <h3>Correo Electrónico</h3>
+        <p>Valide que el correo del cliente esté correctamente registrado.</p>
+        <div class="img-wrap">
+            <img src="MC 1.28.png" alt="Validación correo electrónico del cliente">
+            <figcaption>Verifique el correo electrónico del cliente</figcaption>
+        </div>
+
+        <h3>Ubicación del Equipo</h3>
+        <p>Especifique si el equipo se encuentra físicamente en el taller o si la visita es a domicilio.</p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="MC 1.29.png" alt="Ubicación del equipo – opciones">
+                <figcaption>Seleccione la ubicación del equipo</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="MC 1.30.png" alt="Confirmación de ubicación en taller">
+                <figcaption>Confirme si el equipo está en taller</figcaption>
+            </div>
+        </div>
+
+        <p style="margin-top:1.2rem;">
+            Haga clic en <span class="badge verde">Aceptar</span>
+            para finalizar y generar la Orden de Trabajo en el sistema.
+        </p>
+        <div class="img-wrap">
+            <img src="MC 1.31.png" alt="Botón Aceptar – generar OT">
+            <figcaption>Aceptar → la OT queda generada en SAMM</figcaption>
+        </div>
+
+        <div class="success-box">
+            ✅ ORDEN DE TRABAJO CREADA EXITOSAMENTE EN SAMM
+        </div>
+    </div>
+
+</div><!-- /container fase 3 -->
+
+<footer>
+    <p>&copy; 2026 ELECTRO SERVICE S.A. — Manual Operativo SAMM Web</p>
+    <small>Documento de uso interno confidencial</small>
+</footer>
+
+<!-- ── ZOOM ── -->
+<script>
+    const modal      = document.getElementById('modal-zoom');
+    const imgZoom    = document.getElementById('img-ampliada');
+    document.querySelectorAll('.img-wrap img').forEach(img => {
+        img.addEventListener('click', () => {
+            imgZoom.src      = img.src;
+            modal.style.display = 'flex';
+        });
+    });
+</script>
+
+</body>
+</html>
