@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual: Gestión de Órdenes Alkosto — Electro Service S.A.</title>
+    <style>
+        :root {
+            --vinotinto: #a50034;
+            --negro: #212121;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+            --verde-exito: #2e7d32;
+            --azul: #1565c0;
+            --naranja: #e65100;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.65;
+            color: var(--negro);
+            background-color: var(--gris-claro);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ══ HEADER ══ */
+        header {
+            background-color: var(--vinotinto);
+            color: var(--blanco);
+            padding: 2.5rem 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+        }
+        header h1 { margin: 0 0 0.4rem; font-size: 2rem; font-weight: 700; }
+        header p  { margin: 0; opacity: 0.85; font-size: 0.97rem; }
+
+        /* ══ BARRA DE SECCIONES ══ */
+        .phases-bar {
+            background: #181818;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 0.85rem 1rem;
+            gap: 0;
+        }
+        .phase-step {
+            display: flex; align-items: center; gap: 8px;
+            padding: 0.5rem 1.1rem; border-radius: 6px;
+            font-size: 0.84rem; font-weight: 600;
+        }
+        .phase-step.f1 { background: var(--azul);        color: #fff; }
+        .phase-step.f2 { background: var(--vinotinto);   color: #fff; }
+        .phase-step.f3 { background: var(--verde-exito); color: #fff; }
+        .phase-step.f4 { background: var(--naranja);     color: #fff; }
+        .phase-step .num {
+            background: rgba(255,255,255,0.22); border-radius: 50%;
+            width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .phase-arrow { color: #ffd54f; font-size: 1.3rem; padding: 0 0.4rem; font-weight: bold; }
+
+        /* ══ AVISO SUPERIOR ══ */
+        .top-notice {
+            background: var(--negro); color: #ffd54f;
+            text-align: center; padding: 0.85rem 1rem; font-size: 0.88rem;
+        }
+
+        /* ══ SECTION HEADER ══ */
+        .section-header {
+            max-width: 980px; margin: 2.8rem auto 0; padding: 0 1rem;
+        }
+        .section-title {
+            display: flex; align-items: center; gap: 14px;
+            padding: 1rem 1.6rem; border-radius: 8px;
+            color: var(--blanco); font-size: 1.1rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .section-title.azul      { background: var(--azul); }
+        .section-title.vinotinto { background: var(--vinotinto); }
+        .section-title.verde     { background: var(--verde-exito); }
+        .section-title.naranja   { background: var(--naranja); }
+        .section-badge {
+            background: rgba(255,255,255,0.22); border-radius: 50%;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.05rem; font-weight: 800; flex-shrink: 0;
+        }
+        .section-note {
+            background: var(--blanco); border-left: 5px solid var(--azul);
+            padding: 0.85rem 1.1rem; margin-top: 0.7rem;
+            border-radius: 0 6px 6px 0; font-size: 0.95rem;
+        }
+        .section-note.vinotinto { border-left-color: var(--vinotinto); }
+        .section-note.verde     { border-left-color: var(--verde-exito); }
+        .section-note.naranja   { border-left-color: var(--naranja); }
+
+        /* ══ CONTAINER ══ */
+        .container { max-width: 980px; margin: 1.5rem auto 2rem; padding: 0 1rem; }
+
+        /* ══ STEP CARDS ══ */
+        .step-card {
+            background: var(--blanco);
+            border-left: 6px solid var(--vinotinto);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .step-card.azul    { border-left-color: var(--azul); }
+        .step-card.verde   { border-left-color: var(--verde-exito); }
+        .step-card.naranja { border-left-color: var(--naranja); }
+
+        .step-card h2 {
+            margin: 0 0 1rem; border-bottom: 2px solid #eee;
+            padding-bottom: 0.7rem; display: flex; align-items: center;
+            text-transform: uppercase; font-size: 1.1rem;
+            color: var(--vinotinto);
+        }
+        .step-card.azul    h2 { color: var(--azul); }
+        .step-card.verde   h2 { color: var(--verde-exito); }
+        .step-card.naranja h2 { color: var(--naranja); }
+
+        .step-number {
+            background: var(--negro); color: var(--blanco);
+            width: 32px; height: 32px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; margin-right: 14px;
+            font-size: 0.88rem; font-weight: 700; flex-shrink: 0;
+        }
+
+        .step-card h3 {
+            color: var(--negro); border-left: 4px solid var(--vinotinto);
+            padding-left: 10px; margin: 1.4rem 0 0.4rem; font-size: 1rem;
+        }
+        .step-card.azul    h3 { border-left-color: var(--azul); }
+        .step-card.verde   h3 { border-left-color: var(--verde-exito); }
+        .step-card.naranja h3 { border-left-color: var(--naranja); }
+
+        .highlight { font-weight: 700; color: var(--vinotinto); }
+
+        /* ══ ESTADOS GRID ══ */
+        .estados-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 12px; margin: 1.2rem 0;
+        }
+        .estado-card {
+            border-radius: 8px; padding: 1.1rem; text-align: center; border: 2px solid;
+        }
+        .estado-card .icono { font-size: 1.8rem; display: block; margin-bottom: 0.3rem; }
+        .estado-card strong { display: block; font-size: 0.95rem; margin-bottom: 0.3rem; }
+        .estado-card p { font-size: 0.82rem; margin: 0; }
+        .estado-card.rojo   { background: #fff5f5; border-color: #c62828; }
+        .estado-card.rojo strong { color: #c62828; }
+        .estado-card.verde  { background: #f0fff4; border-color: var(--verde-exito); }
+        .estado-card.verde strong { color: var(--verde-exito); }
+        .estado-card.gris   { background: #f5f5f5; border-color: #616161; }
+        .estado-card.gris strong { color: #424242; }
+
+        /* ══ IMÁGENES ══ */
+        .img-wrap {
+            text-align: center; margin: 1.3rem 0;
+            background: #fafafa; padding: 10px;
+            border: 1px solid #e8e8e8; border-radius: 6px;
+        }
+        .img-wrap img {
+            max-width: 100%; height: auto;
+            border: 1px solid #ddd; border-radius: 4px;
+            cursor: zoom-in; transition: transform 0.25s;
+            display: block; margin: 0 auto;
+        }
+        .img-wrap img:hover { transform: scale(1.015); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+        .img-wrap figcaption { font-size: 0.78rem; color: #888; margin-top: 5px; font-style: italic; }
+
+        .img-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 1.3rem 0; }
+        .img-row .img-wrap { flex: 1 1 240px; margin: 0; }
+
+        /* ══ CAJAS ══ */
+        .info-box {
+            background: #f0f7ff; border-left: 5px solid var(--azul);
+            padding: 1rem 1.1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; font-size: 0.94rem;
+        }
+        .alert-box {
+            background: #fff5f5; border: 1px solid #feb2b2;
+            border-left: 5px solid #c62828;
+            padding: 1rem 1.1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; font-size: 0.94rem;
+        }
+        .warning-box {
+            background: #fffaf0; border-left: 5px solid #ed8936;
+            padding: 0.9rem 1rem; margin: 1rem 0;
+            border-radius: 6px; color: #744210; font-size: 0.94rem;
+        }
+        .success-box {
+            text-align: center; font-weight: 700; font-size: 1rem;
+            color: var(--verde-exito); border: 2px solid var(--verde-exito);
+            background: #f0fff4; padding: 12px; border-radius: 6px; margin: 1.5rem 0 0;
+        }
+
+        /* ══ LINK BTN ══ */
+        .link-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--azul); color: white;
+            padding: 10px 20px; text-decoration: none; border-radius: 5px;
+            font-weight: 600; font-size: 0.9rem; margin: 0.8rem 0;
+            word-break: break-all;
+        }
+        .link-btn:hover { background: #0d47a1; }
+
+        /* ══ CAMPOS TABLE ══ */
+        .fields-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.91rem; }
+        .fields-table th { background: var(--negro); color: white; padding: 10px 14px; text-align: left; }
+        .fields-table td { padding: 9px 14px; border: 1px solid #e0e0e0; }
+        .fields-table tr:nth-child(even) td { background: #fafafa; }
+        .fields-table .val { font-weight: 700; color: var(--vinotinto); }
+
+        /* ══ BADGE ══ */
+        .badge {
+            display: inline-block; background: var(--vinotinto); color: white;
+            padding: 0.1rem 0.55rem; border-radius: 4px;
+            font-size: 0.82rem; font-weight: 700; vertical-align: middle;
+        }
+        .badge.azul   { background: var(--azul); }
+        .badge.verde  { background: var(--verde-exito); }
+        .badge.naranja{ background: var(--naranja); }
+        .badge.dark   { background: var(--negro); }
+
+        /* ══ MODAL ZOOM ══ */
+        #modal-zoom {
+            display: none; position: fixed; z-index: 9999;
+            inset: 0; background: rgba(0,0,0,0.92);
+            justify-content: center; align-items: center; cursor: zoom-out;
+        }
+        #modal-zoom img {
+            max-width: 92%; max-height: 92%;
+            border: 3px solid white; border-radius: 4px; cursor: zoom-out;
+        }
+
+        footer {
+            text-align: center; padding: 3rem 1rem;
+            background: var(--negro); color: var(--blanco); margin-top: 2rem;
+        }
+        footer small { opacity: 0.45; font-size: 0.8rem; }
+
+        @media (max-width: 620px) {
+            .estados-grid { grid-template-columns: 1fr; }
+            .img-row      { flex-direction: column; }
+            header h1     { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="modal-zoom" onclick="this.style.display='none'">
+    <img id="img-ampliada" src="" alt="Zoom">
+</div>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header>
+    <h1>Manual: Gestión de Órdenes Alkosto</h1>
+    <p>Consulta de estados, extracción de información del cliente e identificación de productos</p>
+</header>
+
+<div class="phases-bar">
+    <div class="phase-step f1"><span class="num">1</span>Acceso al Sistema</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f2"><span class="num">2</span>Consulta de Estados</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f3"><span class="num">3</span>Info del Cliente y Producto</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f4"><span class="num">4</span>Crear Novedad</div>
+</div>
+
+<div class="top-notice">
+    <strong>⚠ IMPORTANTE:</strong> El estado más crítico de mantener bajo es <strong>"No Asignada"</strong> — indica que aún no se ha establecido contacto con el cliente.
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SECCIÓN 1: ACCESO AL SISTEMA
+═══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title azul">
+        <span class="section-badge">1</span>
+        Sección 1 — Acceso al Sistema
+    </div>
+    <div class="section-note">
+        Ingreso al portal de Alkosto Field Service para gestionar las órdenes de instalación y servicio asignadas.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card azul">
+        <h2><span class="step-number">1</span>Ingresar al Portal de Alkosto</h2>
+        <p>Abra su navegador y diríjase al siguiente enlace del portal Field Service de Alkosto:</p>
+        <a class="link-btn"
+           href="https://41k0st0.my.site.com/fieldservice/s/login/?ec=302&startURL=%2Ffieldservice%2Fs%2Fdetail%2F0WOPH00000QyrAX4AZ"
+           target="_blank">
+            🔗 Abrir Portal Alkosto Field Service
+        </a>
+        <p>Ingrese el <strong>nombre de usuario</strong> y la <strong>clave</strong> designada para su cuenta.</p>
+        <div class="img-wrap">
+            <img src="M 1.png" alt="Pantalla de inicio de sesión Alkosto">
+            <figcaption>Pantalla de login — ingrese usuario y clave designados</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card azul">
+        <h2><span class="step-number">2</span>Panel Principal — Botón Reportes</h2>
+        <p>
+            Una vez dentro, verá el <strong>panel principal</strong>.
+            Busque y haga clic en el botón <span class="badge azul">Reportes</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 2.png" alt="Panel principal con botón Reportes">
+            <figcaption>Panel principal → botón Reportes</figcaption>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SECCIÓN 2: CONSULTA DE ESTADOS
+═══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title vinotinto">
+        <span class="section-badge">2</span>
+        Sección 2 — Consulta de Estados
+    </div>
+    <div class="section-note vinotinto">
+        Desde Reportes podrá visualizar todas las órdenes organizadas por estado.
+        Cada estado indica una situación diferente y determina la acción que debe tomarse.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card">
+        <h2><span class="step-number">3</span>Seleccionar "Órdenes Abiertas por Estado"</h2>
+        <p>
+            Al entrar a Reportes, verá varias opciones disponibles.
+            Seleccione <span class="highlight">"Órdenes Abiertas por Estado"</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 3.png" alt="Opciones de Reportes — Órdenes Abiertas por Estado">
+            <figcaption>Reportes → Órdenes Abiertas por Estado</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">4</span>Entender los Estados de las Órdenes</h2>
+        <p>Cada orden se clasifica en uno de los siguientes estados. Identifíquelo para saber qué acción corresponde:</p>
+
+        <div class="estados-grid">
+            <div class="estado-card rojo">
+                <span class="icono">🔴</span>
+                <strong>No Asignada</strong>
+                <p>Aún <strong>no se ha establecido contacto</strong> con el cliente. Es el estado más crítico — debe mantenerse lo más bajo posible.</p>
+            </div>
+            <div class="estado-card verde">
+                <span class="icono">🟢</span>
+                <strong>Agendada</strong>
+                <p>El cliente ya tiene una <strong>orden de trabajo asociada</strong> y una visita programada.</p>
+            </div>
+            <div class="estado-card gris">
+                <span class="icono">⚫</span>
+                <strong>No Contactada</strong>
+                <p>Se <strong>intentó contactar</strong> al cliente pero no fue posible lograrlo.</p>
+            </div>
+        </div>
+
+        <div class="img-wrap">
+            <img src="M 4.png" alt="Vista de los tres estados de órdenes">
+            <figcaption>Los tres estados: No Asignada, Agendada y No Contactada</figcaption>
+        </div>
+
+        <div class="alert-box">
+            <strong>🔴 Estado prioritario:</strong> El estado <strong>"No Asignada"</strong> es el más vital de gestionar.
+            Significa que el cliente no ha sido contactado todavía y la orden está sin ningún seguimiento.
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">5</span>Acceder a los Casos de un Estado</h2>
+        <p>
+            Haga clic sobre cualquiera de los estados para ver la lista de casos que pertenecen a él.
+            En este ejemplo se usa <span class="highlight">"No Asignadas"</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 5.png" alt="Lista de casos dentro del estado No Asignadas">
+            <figcaption>Al hacer clic en un estado, aparece la lista de casos correspondientes</figcaption>
+        </div>
+        <p>
+            Haga clic sobre <strong>cualquier caso de la lista</strong>
+            para abrir la orden de trabajo de Alkosto asociada a ese cliente.
+        </p>
+    </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SECCIÓN 3: INFO DEL CLIENTE Y PRODUCTO
+═══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title verde">
+        <span class="section-badge">3</span>
+        Sección 3 — Información del Cliente e Identificación del Producto
+    </div>
+    <div class="section-note verde">
+        Dentro de cada orden encontrará los datos del cliente y el producto asociado.
+        Siga estos pasos para localizarlos correctamente.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card verde">
+        <h2><span class="step-number">6</span>Datos del Cliente en la Orden de Trabajo</h2>
+        <p>
+            Dentro de la orden, <strong>desplace la página hacia abajo (scroll)</strong>
+            para encontrar la información del cliente.
+        </p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="M 6.png" alt="Scroll en la orden de trabajo">
+                <figcaption>Haga scroll hacia abajo en la orden</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="M 7.png" alt="Información del cliente visible en la orden">
+                <figcaption>Información del cliente visible al hacer scroll</figcaption>
+            </div>
+        </div>
+    </div>
+
+    <div class="step-card verde">
+        <h2><span class="step-number">7</span>Ver Información Completa del Cliente</h2>
+        <p>
+            Si necesita más datos del cliente o la <strong>dirección no aparece</strong> en la vista principal,
+            haga clic directamente en el <span class="highlight">nombre del cliente</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 8.png" alt="Clic en el nombre del cliente">
+            <figcaption>Haga clic en el nombre del cliente para ver más información</figcaption>
+        </div>
+        <p>
+            Se abrirá el perfil completo del cliente, donde podrá ver
+            todos sus datos incluyendo la <strong>dirección de instalación</strong>.
+        </p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="M 9.png" alt="Perfil del cliente – datos completos">
+                <figcaption>Perfil del cliente con información detallada</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="M 10.png" alt="Dirección del cliente en el perfil">
+                <figcaption>Dirección y datos adicionales del cliente</figcaption>
+            </div>
+        </div>
+    </div>
+
+    <div class="step-card verde">
+        <h2><span class="step-number">8</span>Volver a la Orden de Trabajo</h2>
+        <p>
+            Para regresar a la orden de trabajo desde el perfil del cliente,
+            <strong>suba al inicio de la página</strong> y haga clic en la pestaña
+            <span class="highlight">Relacionado</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 11.png" alt="Pestaña Relacionado para volver a la orden">
+            <figcaption>Pestaña "Relacionado" → aquí verá el número de orden nuevamente</figcaption>
+        </div>
+        <div class="info-box">
+            Desde la pestaña <strong>Relacionado</strong> podrá ver el número de orden de trabajo asociado y acceder a ella directamente.
+        </div>
+    </div>
+
+    <div class="step-card verde">
+        <h2><span class="step-number">9</span>Identificar el Producto (Modelo)</h2>
+        <p>
+            De vuelta en la orden de trabajo, ubique el botón
+            <span class="highlight">Estado de Despacho</span> y haga clic en él.
+        </p>
+        <div class="img-wrap">
+            <img src="M 12.png" alt="Botón Estado de Despacho en la orden">
+            <figcaption>Botón "Estado de Despacho" en la orden de trabajo</figcaption>
+        </div>
+
+        <h3>Abrir la Búsqueda del Producto</h3>
+        <p>
+            Se abrirá un mini panel. Haga clic en el botón
+            <span class="badge verde">Búsqueda</span> dentro de ese panel.
+        </p>
+        <div class="img-wrap">
+            <img src="M 13.png" alt="Mini panel — botón Búsqueda">
+            <figcaption>Mini panel de Estado de Despacho → botón Búsqueda</figcaption>
+        </div>
+
+        <h3>Seleccionar el Número de Factura</h3>
+        <p>
+            Aparecerán los resultados de búsqueda.
+            Haga clic en el <strong>cuadro pequeño que contiene el número de factura</strong>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 14.png" alt="Cuadro con número de factura en resultados">
+            <figcaption>Seleccione el cuadro con el número de factura</figcaption>
+        </div>
+
+        <h3>Ver el Modelo del Producto</h3>
+        <p>
+            Se abrirá un nuevo panel donde podrá ver el
+            <span class="highlight">modelo exacto del producto</span> asociado a la orden.
+        </p>
+        <div class="img-wrap">
+            <img src="M 15.png" alt="Panel con el modelo del producto">
+            <figcaption>Aquí se muestra el modelo del producto asociado a la orden</figcaption>
+        </div>
+
+        <div class="info-box">
+            <strong>Resumen del flujo para encontrar el modelo:</strong><br>
+            Estado de Despacho → <strong>Búsqueda</strong> → clic en número de factura → <strong>Ver modelo</strong>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     SECCIÓN 4: CREAR NOVEDAD
+═══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title naranja">
+        <span class="section-badge">4</span>
+        Sección 4 — Crear Novedad (Cancelación de Orden Agendada)
+    </div>
+    <div class="section-note naranja">
+        Cuando una orden en estado <strong>"Agendada"</strong> deba cancelarse,
+        utilice el botón <strong>"Crear Novedad"</strong> para registrar el motivo de forma oficial.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card naranja">
+        <h2><span class="step-number">10</span>Acceder a "Crear Novedad"</h2>
+        <p>
+            Dentro de la orden que requiere cancelación,
+            ubique y haga clic en el botón <span class="highlight">Crear Novedad</span>.
+        </p>
+        <div class="img-wrap">
+            <img src="M 16.png" alt="Botón Crear Novedad en la orden agendada">
+            <figcaption>Botón "Crear Novedad" — disponible en órdenes Agendadas</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card naranja">
+        <h2><span class="step-number">11</span>Completar el Formulario de Novedad</h2>
+        <p>Se abrirá el formulario para registrar la novedad. Complete todos los campos:</p>
+
+        <h3>Número de Caso</h3>
+        <p>
+            En el primer campo, ingrese el <span class="highlight">número de caso</span>
+            correspondiente a la orden que se va a cancelar.
+        </p>
+        <div class="img-wrap">
+            <img src="M 17.png" alt="Campo Número de Caso en formulario de novedad">
+            <figcaption>Ingrese el número de caso de la orden a cancelar</figcaption>
+        </div>
+
+        <h3>Criticidad y Tipificación</h3>
+        <p>Configure los siguientes campos:</p>
+
+        <table class="fields-table">
+            <thead>
+                <tr><th>Campo</th><th>Valor</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Criticidad</td>
+                    <td class="val">Alta</td>
+                </tr>
+                <tr>
+                    <td>Tipificación</td>
+                    <td class="val">Seleccione la razón por la cual no se pudo realizar la instalación del producto</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="img-wrap">
+            <img src="M 18.png" alt="Campos Criticidad y Tipificación en formulario">
+            <figcaption>Criticidad → Alta | Tipificación → razón de la cancelación</figcaption>
+        </div>
+
+        <h3>Descripción</h3>
+        <p>
+            En el campo <span class="highlight">Descripción</span>,
+            escriba la razón <strong>detallada y específica</strong> por la cual
+            no fue posible realizar la instalación o el servicio.
+        </p>
+
+        <div class="warning-box">
+            <strong>⚠ Recuerde:</strong> La descripción debe ser lo más específica posible.
+            No escriba razones genéricas — incluya detalles concretos de lo ocurrido.
+        </div>
+
+        <div class="success-box">
+            ✅ Una vez completados todos los campos, envíe la novedad para que quede registrada oficialmente en el sistema.
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 ELECTRO SERVICE S.A. — Manual Operativo Alkosto Field Service</p>
+    <small>Documento de uso interno confidencial</small>
+</footer>
+
+<script>
+    const modal   = document.getElementById('modal-zoom');
+    const imgZoom = document.getElementById('img-ampliada');
+    document.querySelectorAll('.img-wrap img').forEach(img => {
+        img.addEventListener('click', () => {
+            imgZoom.src = img.src;
+            modal.style.display = 'flex';
+        });
+    });
+</script>
+
+</body>
+</html>
