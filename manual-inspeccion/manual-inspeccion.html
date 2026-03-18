@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual: Instalación no Realizada por Falta de Adecuaciones — Electro Service S.A.</title>
+    <style>
+        :root {
+            --vinotinto: #a50034;
+            --negro: #212121;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+            --verde-exito: #2e7d32;
+            --azul: #1565c0;
+            --naranja: #e65100;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.65;
+            color: var(--negro);
+            background-color: var(--gris-claro);
+            margin: 0; padding: 0;
+        }
+
+        /* ══ HEADER ══ */
+        header {
+            background-color: var(--vinotinto);
+            color: var(--blanco);
+            padding: 2.5rem 1.5rem 2rem;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+        }
+        header h1 { margin: 0 0 0.4rem; font-size: 2rem; font-weight: 700; }
+        header p  { margin: 0; opacity: 0.85; font-size: 0.97rem; }
+
+        /* ══ BARRA DE FASES ══ */
+        .phases-bar {
+            background: #181818;
+            display: flex; justify-content: center; align-items: center;
+            flex-wrap: wrap; padding: 0.85rem 1rem; gap: 0;
+        }
+        .phase-step {
+            display: flex; align-items: center; gap: 8px;
+            padding: 0.5rem 1.1rem; border-radius: 6px;
+            font-size: 0.84rem; font-weight: 600;
+        }
+        .phase-step.f1 { background: var(--naranja);     color: #fff; }
+        .phase-step.f2 { background: var(--azul);        color: #fff; }
+        .phase-step .num {
+            background: rgba(255,255,255,0.22); border-radius: 50%;
+            width: 24px; height: 24px;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .phase-arrow { color: #ffd54f; font-size: 1.3rem; padding: 0 0.4rem; font-weight: bold; }
+
+        /* ══ TOP NOTICE ══ */
+        .top-notice {
+            background: var(--negro); color: #ffd54f;
+            text-align: center; padding: 0.85rem 1rem; font-size: 0.88rem;
+        }
+
+        /* ══ SECTION HEADER ══ */
+        .section-header { max-width: 980px; margin: 2.8rem auto 0; padding: 0 1rem; }
+        .section-title {
+            display: flex; align-items: center; gap: 14px;
+            padding: 1rem 1.6rem; border-radius: 8px;
+            color: var(--blanco); font-size: 1.1rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .section-title.naranja { background: var(--naranja); }
+        .section-title.azul    { background: var(--azul); }
+        .section-badge {
+            background: rgba(255,255,255,0.22); border-radius: 50%;
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.05rem; font-weight: 800; flex-shrink: 0;
+        }
+        .section-note {
+            background: var(--blanco); border-left: 5px solid var(--naranja);
+            padding: 0.85rem 1.1rem; margin-top: 0.7rem;
+            border-radius: 0 6px 6px 0; font-size: 0.95rem;
+        }
+        .section-note.azul { border-left-color: var(--azul); }
+
+        /* ══ CONTAINER ══ */
+        .container { max-width: 980px; margin: 1.5rem auto 2rem; padding: 0 1rem; }
+
+        /* ══ STEP CARDS ══ */
+        .step-card {
+            background: var(--blanco);
+            border-left: 6px solid var(--naranja);
+            border-radius: 8px; margin-bottom: 2rem;
+            padding: 1.8rem 2rem;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+        }
+        .step-card.azul { border-left-color: var(--azul); }
+
+        .step-card h2 {
+            margin: 0 0 1rem; border-bottom: 2px solid #eee;
+            padding-bottom: 0.7rem; display: flex; align-items: center;
+            text-transform: uppercase; font-size: 1.1rem; color: var(--naranja);
+        }
+        .step-card.azul h2 { color: var(--azul); }
+
+        .step-number {
+            background: var(--negro); color: var(--blanco);
+            width: 32px; height: 32px;
+            display: flex; justify-content: center; align-items: center;
+            border-radius: 50%; margin-right: 14px;
+            font-size: 0.88rem; font-weight: 700; flex-shrink: 0;
+        }
+
+        .step-card h3 {
+            color: var(--negro); border-left: 4px solid var(--naranja);
+            padding-left: 10px; margin: 1.4rem 0 0.4rem; font-size: 1rem;
+        }
+        .step-card.azul h3 { border-left-color: var(--azul); }
+
+        .highlight { font-weight: 700; color: var(--vinotinto); }
+
+        /* ══ IMÁGENES ══ */
+        .img-wrap {
+            text-align: center; margin: 1.3rem 0;
+            background: #fafafa; padding: 10px;
+            border: 1px solid #e8e8e8; border-radius: 6px;
+        }
+        .img-wrap img {
+            max-width: 100%; height: auto;
+            border: 1px solid #ddd; border-radius: 4px;
+            cursor: zoom-in; transition: transform 0.25s;
+            display: block; margin: 0 auto;
+        }
+        .img-wrap img:hover { transform: scale(1.015); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+        .img-wrap figcaption { font-size: 0.78rem; color: #888; margin-top: 5px; font-style: italic; }
+
+        .img-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 1.3rem 0; }
+        .img-row .img-wrap { flex: 1 1 240px; margin: 0; }
+
+        /* ══ CAJAS ══ */
+        .info-box {
+            background: #f0f7ff; border-left: 5px solid var(--azul);
+            padding: 1rem 1.1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; font-size: 0.94rem;
+        }
+        .alert-box {
+            background: #fff8f0; border: 1px solid #fbd38d;
+            border-left: 5px solid var(--naranja);
+            padding: 1rem 1.1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; font-size: 0.94rem;
+            color: #744210;
+        }
+        .warning-box {
+            background: #fff5f5; border-left: 5px solid #c62828;
+            padding: 0.9rem 1rem; margin: 1rem 0;
+            border-radius: 6px; font-size: 0.94rem;
+        }
+        .success-box {
+            text-align: center; font-weight: 700; font-size: 1rem;
+            color: var(--verde-exito); border: 2px solid var(--verde-exito);
+            background: #f0fff4; padding: 12px; border-radius: 6px; margin: 1.5rem 0 0;
+        }
+
+        /* ══ CHECKLIST ══ */
+        .checklist { list-style: none; padding: 0; margin: 0.8rem 0; }
+        .checklist li {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex; align-items: flex-start; gap: 10px;
+            font-size: 0.95rem;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .checklist li::before {
+            content: '☐';
+            color: var(--azul); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px;
+        }
+
+        /* ══ BADGE ══ */
+        .badge {
+            display: inline-block; background: var(--vinotinto); color: white;
+            padding: 0.1rem 0.55rem; border-radius: 4px;
+            font-size: 0.82rem; font-weight: 700; vertical-align: middle;
+        }
+        .badge.naranja { background: var(--naranja); }
+        .badge.azul    { background: var(--azul); }
+        .badge.verde   { background: var(--verde-exito); }
+
+        kbd {
+            background: #eee; border: 1px solid #bbb; border-radius: 3px;
+            padding: 1px 7px; font-size: 0.83rem; font-family: 'Courier New', monospace;
+        }
+
+        /* ══ MODAL ZOOM ══ */
+        #modal-zoom {
+            display: none; position: fixed; z-index: 9999;
+            inset: 0; background: rgba(0,0,0,0.92);
+            justify-content: center; align-items: center; cursor: zoom-out;
+        }
+        #modal-zoom img {
+            max-width: 92%; max-height: 92%;
+            border: 3px solid white; border-radius: 4px; cursor: zoom-out;
+        }
+
+        footer {
+            text-align: center; padding: 3rem 1rem;
+            background: var(--negro); color: var(--blanco); margin-top: 2rem;
+        }
+        footer small { opacity: 0.45; font-size: 0.8rem; }
+
+        @media (max-width: 620px) {
+            .img-row  { flex-direction: column; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="modal-zoom" onclick="this.style.display='none'">
+    <img id="img-ampliada" src="" alt="Zoom">
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+    <h1>Manual: Instalación no Realizada por Falta de Adecuaciones</h1>
+    <p>Procedimiento para reportar, escalar y reagendar una visita cuando el domicilio no está listo</p>
+</header>
+
+<div class="phases-bar">
+    <div class="phase-step f1"><span class="num">1</span>Reporte del Técnico en Campo</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f2"><span class="num">2</span>Gestión Administrativa (Call Center / Supervisor)</div>
+</div>
+
+<div class="top-notice">
+    <strong>⚠ CONTEXTO:</strong> Este procedimiento aplica cuando el técnico llega al domicilio y <strong>no puede realizar la instalación</strong> porque el cliente no tiene las adecuaciones necesarias (plomería, electricidad, espacio, etc.).
+</div>
+
+
+<!-- ══════════════════════════════════════
+     FASE 1: TÉCNICO EN CAMPO
+══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title naranja">
+        <span class="section-badge">1</span>
+        Fase 1 — Reporte del Técnico en Campo
+    </div>
+    <div class="section-note">
+        El técnico llegó al domicilio y detectó que las condiciones no permiten realizar la instalación.
+        Debe registrar la novedad en SAMM antes de retirarse.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card">
+        <h2><span class="step-number">1</span>Abrir SAMM y Localizar la Orden</h2>
+        <p>
+            El técnico abre <strong>SAMM</strong> desde su dispositivo.
+            En la <span class="highlight">Bandeja de Servicios</span> verá las órdenes asignadas para el día.
+            Ingrese a la orden correspondiente al cliente.
+        </p>
+        <div class="img-wrap">
+            <img src="Photo 1.jpeg" alt="Bandeja de Servicios SAMM">
+            <figcaption>Bandeja de Servicios — seleccione la orden del cliente</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">2</span>Ingresar a Información General</h2>
+        <p>
+            Dentro de la orden, diríjase al apartado de
+            <span class="highlight">Información General</span> para verificar los datos del servicio.
+        </p>
+        <div class="img-wrap">
+            <img src="Photo 2.jpeg" alt="Apartado Información General en la orden">
+            <figcaption>Orden del cliente → apartado Información General</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">3</span>Abrir el Diagnóstico Técnico</h2>
+        <p>
+            Seleccione el apartado <span class="highlight">Diagnóstico Técnico</span>.
+            Se abrirá una nueva pestaña lista para el ingreso del reporte.
+        </p>
+        <div class="img-wrap">
+            <img src="Photo 3.jpeg" alt="Pestaña Diagnóstico Técnico">
+            <figcaption>Clic en Diagnóstico Técnico para abrir el formulario de reporte</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">4</span>Seleccionar el Motivo — "Pendiente Plomería"</h2>
+        <p>
+            Haga clic en el <span class="badge naranja">T</span> (botón naranja con una T).
+            Se desplegará un menú con opciones predefinidas de diagnóstico.
+            Busque y seleccione la opción <span class="highlight">"Pendiente plomería"</span>.
+        </p>
+        <div class="alert-box">
+            <strong>💡 Nota:</strong> Si la opción no es visible de inmediato, desplace la lista hacia arriba haciendo scroll — las opciones están ordenadas alfabéticamente.
+        </div>
+        <div class="img-wrap">
+            <img src="Photo 4.jpeg" alt="Menú de opciones — botón T">
+            <figcaption>Botón T → menú de opciones → seleccionar "Pendiente plomería"</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">5</span>Editar el Mensaje y Confirmar</h2>
+        <p>
+            Al seleccionar la opción aparecerá un <strong>mensaje predeterminado</strong>.
+            Es <strong>obligatorio editarlo</strong> para especificar con detalle qué adecuación
+            le falta al cliente en su domicilio.
+        </p>
+
+        <div class="warning-box">
+            <strong>⚠ No deje el mensaje genérico.</strong> Describa con precisión:
+            qué le falta al cliente (toma de agua, desagüe, toma eléctrica, espacio, etc.)
+            para que el agente pueda hacer el seguimiento correcto.
+        </div>
+
+        <p>
+            Una vez editado el mensaje, presione el botón
+            <span class="badge verde">Listo ✓</span> para guardar el reporte.
+        </p>
+        <div class="img-wrap">
+            <img src="Photo 5.jpeg" alt="Mensaje editado y botón Listo">
+            <figcaption>Edite el mensaje con el detalle de la adecuación faltante → clic en Listo ✓</figcaption>
+        </div>
+
+        <div class="success-box">✅ REPORTE DEL TÉCNICO REGISTRADO EN SAMM</div>
+    </div>
+
+</div>
+
+
+<!-- ══════════════════════════════════════
+     FASE 2: GESTIÓN ADMINISTRATIVA
+══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title azul">
+        <span class="section-badge">2</span>
+        Fase 2 — Gestión Administrativa (Call Center / Supervisor)
+    </div>
+    <div class="section-note azul">
+        Una vez el técnico registra el reporte, el agente o supervisor recibe el caso y debe
+        convertir la orden a tipo <strong>Inspección (L25)</strong> y coordinar la nueva visita.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card azul">
+        <h2><span class="step-number">6</span>Localizar la OTT en SAMM</h2>
+        <p>
+            El agente busca la orden de servicio en SAMM usando el número de OTT
+            reportado por el técnico.
+        </p>
+        <div class="img-wrap">
+            <img src="imagen 1.png" alt="Búsqueda de la OTT en SAMM">
+            <figcaption>Localice la OTT en SAMM</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card azul">
+        <h2><span class="step-number">7</span>Cambiar el Tipo de Servicio a L25</h2>
+        <p>
+            Dentro de la orden, ubique el campo <span class="highlight">Tipo de Servicio</span>.
+            Escriba el código <strong>L25</strong> y presione <kbd>Enter</kbd>.
+        </p>
+        <div class="info-box">
+            <strong>¿Qué es L25?</strong> Es el código que convierte la orden a tipo <strong>Inspección</strong>,
+            indicando que se requiere una visita previa de verificación antes de proceder con la instalación.
+        </div>
+        <div class="img-wrap">
+            <img src="imagen 2.png" alt="Ingreso del código L25 en Tipo de Servicio">
+            <figcaption>Tipo de Servicio → escribir L25 → Enter</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card azul">
+        <h2><span class="step-number">8</span>Confirmar la Conversión a Inspección</h2>
+        <p>
+            Haga clic en <strong>Aceptar</strong>.
+            La orden cambiará automáticamente a tipo <span class="highlight">Inspección</span>.
+            Verifique que el cambio se haya aplicado correctamente.
+        </p>
+        <div class="img-wrap">
+            <img src="imagen 3.png" alt="Orden convertida a tipo Inspección">
+            <figcaption>La orden ahora aparece como tipo Inspección</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card azul">
+        <h2><span class="step-number">9</span>Crear Nueva Orden y Reagendar la Visita</h2>
+        <p>
+            Con la inspección registrada, proceda a <strong>crear una nueva orden de servicio</strong>
+            para cuando el cliente tenga lista la adecuación. Para ello debe contactar al cliente y verificar:
+        </p>
+
+        <ul class="checklist">
+            <li>Confirmar que las adecuaciones necesarias ya están terminadas.</li>
+            <li>Consultar la disponibilidad del cliente para programar la nueva fecha de instalación.</li>
+        </ul>
+
+        <div class="alert-box">
+            <strong>💡 Recuerde:</strong> No programe la nueva visita sin confirmar primero que las adecuaciones están completas.
+            Una segunda visita fallida genera más costos operativos y afecta la satisfacción del cliente.
+        </div>
+
+        <div class="success-box">✅ ORDEN CONVERTIDA A INSPECCIÓN Y NUEVA VISITA COORDINADA</div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 ELECTRO SERVICE S.A. — Manual Operativo SAMM Web</p>
+    <small>Documento de uso interno confidencial</small>
+</footer>
+
+<script>
+    const modal   = document.getElementById('modal-zoom');
+    const imgZoom = document.getElementById('img-ampliada');
+    document.querySelectorAll('.img-wrap img').forEach(img => {
+        img.addEventListener('click', () => {
+            imgZoom.src = img.src;
+            modal.style.display = 'flex';
+        });
+    });
+</script>
+
+</body>
+</html>
