@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual: Creación de Requisición desde OTT — Electro Service S.A.</title>
+    <style>
+        :root {
+            --vinotinto: #a50034;
+            --negro: #212121;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+            --verde-exito: #2e7d32;
+            --azul: #1565c0;
+            --morado: #5c007a;
+        }
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.65; color: var(--negro); background-color: var(--gris-claro); margin: 0; padding: 0; }
+        header { background-color: var(--vinotinto); color: var(--blanco); padding: 2.5rem 1.5rem 2rem; text-align: center; box-shadow: 0 3px 12px rgba(0,0,0,0.35); }
+        header h1 { margin: 0 0 0.4rem; font-size: 2rem; font-weight: 700; }
+        header p  { margin: 0; opacity: 0.85; font-size: 0.97rem; }
+        .phases-bar { background: #181818; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; padding: 0.85rem 1rem; gap: 0; }
+        .phase-step { display: flex; align-items: center; gap: 8px; padding: 0.5rem 1.1rem; border-radius: 6px; font-size: 0.84rem; font-weight: 600; }
+        .phase-step.f1 { background: var(--vinotinto); color: #fff; }
+        .phase-step.f2 { background: var(--morado); color: #fff; }
+        .phase-step .num { background: rgba(255,255,255,0.22); border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.8rem; flex-shrink: 0; }
+        .phase-arrow { color: #ffd54f; font-size: 1.3rem; padding: 0 0.4rem; font-weight: bold; }
+        .top-notice { background: var(--negro); color: #ffd54f; text-align: center; padding: 0.85rem 1rem; font-size: 0.88rem; }
+        .section-header { max-width: 980px; margin: 2.8rem auto 0; padding: 0 1rem; }
+        .section-title { display: flex; align-items: center; gap: 14px; padding: 1rem 1.6rem; border-radius: 8px; color: var(--blanco); font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .section-title.vinotinto { background: var(--vinotinto); }
+        .section-title.morado    { background: var(--morado); }
+        .section-badge { background: rgba(255,255,255,0.22); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; font-weight: 800; flex-shrink: 0; }
+        .section-note { background: var(--blanco); border-left: 5px solid var(--vinotinto); padding: 0.85rem 1.1rem; margin-top: 0.7rem; border-radius: 0 6px 6px 0; font-size: 0.95rem; }
+        .section-note.morado { border-left-color: var(--morado); }
+        .container { max-width: 980px; margin: 1.5rem auto 2rem; padding: 0 1rem; }
+        .step-card { background: var(--blanco); border-left: 6px solid var(--vinotinto); border-radius: 8px; margin-bottom: 2rem; padding: 1.8rem 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+        .step-card.morado { border-left-color: var(--morado); }
+        .step-card h2 { margin: 0 0 1rem; border-bottom: 2px solid #eee; padding-bottom: 0.7rem; display: flex; align-items: center; text-transform: uppercase; font-size: 1.1rem; color: var(--vinotinto); }
+        .step-card.morado h2 { color: var(--morado); }
+        .step-number { background: var(--negro); color: var(--blanco); width: 32px; height: 32px; display: flex; justify-content: center; align-items: center; border-radius: 50%; margin-right: 14px; font-size: 0.88rem; font-weight: 700; flex-shrink: 0; }
+        .step-card h3 { color: var(--negro); border-left: 4px solid var(--vinotinto); padding-left: 10px; margin: 1.4rem 0 0.4rem; font-size: 1rem; }
+        .step-card.morado h3 { border-left-color: var(--morado); }
+        .highlight { font-weight: 700; color: var(--vinotinto); }
+        .estados-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 1rem 0; }
+        .estado-pill { background: #f0fff4; border: 2px solid var(--verde-exito); border-radius: 8px; padding: 0.7rem 1rem; text-align: center; font-size: 0.88rem; font-weight: 600; color: var(--verde-exito); }
+        .items-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.93rem; }
+        .items-table thead tr { background: var(--negro); color: white; }
+        .items-table th { padding: 12px 16px; text-align: left; font-weight: 700; letter-spacing: 0.03em; }
+        .items-table td { padding: 10px 16px; border-bottom: 1px solid #e8e8e8; }
+        .items-table tr:last-child td { border-bottom: none; }
+        .items-table tr:nth-child(even) td { background: #fafafa; }
+        .items-table .tipo { font-weight: 600; }
+        .items-table .item-val { font-family: 'Courier New', monospace; font-weight: 700; color: var(--vinotinto); }
+        .items-table .cat-row td { background: var(--vinotinto) !important; color: white; font-weight: 700; padding: 7px 16px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .img-wrap { text-align: center; margin: 1.3rem 0; background: #fafafa; padding: 10px; border: 1px solid #e8e8e8; border-radius: 6px; }
+        .img-wrap img { max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 4px; cursor: zoom-in; transition: transform 0.25s; display: block; margin: 0 auto; }
+        .img-wrap img:hover { transform: scale(1.015); box-shadow: 0 6px 18px rgba(0,0,0,0.18); }
+        .img-wrap figcaption { font-size: 0.78rem; color: #888; margin-top: 5px; font-style: italic; }
+        .img-row { display: flex; flex-wrap: wrap; gap: 14px; margin: 1.3rem 0; }
+        .img-row .img-wrap { flex: 1 1 240px; margin: 0; }
+        .info-box { background: #f0f7ff; border-left: 5px solid var(--azul); padding: 1rem 1.1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; font-size: 0.94rem; }
+        .alert-box { background: #fff5f5; border-left: 5px solid #c62828; padding: 1rem 1.1rem; margin: 1rem 0; border-radius: 0 5px 5px 0; font-size: 0.94rem; }
+        .warning-box { background: #fffaf0; border-left: 5px solid #ed8936; padding: 0.9rem 1rem; margin: 1rem 0; border-radius: 6px; color: #744210; font-size: 0.94rem; }
+        .success-box { text-align: center; font-weight: 700; font-size: 1rem; color: var(--verde-exito); border: 2px solid var(--verde-exito); background: #f0fff4; padding: 12px; border-radius: 6px; margin: 1.5rem 0 0; }
+        .badge { display: inline-block; background: var(--vinotinto); color: white; padding: 0.1rem 0.55rem; border-radius: 4px; font-size: 0.82rem; font-weight: 700; vertical-align: middle; }
+        .badge.morado { background: var(--morado); }
+        .badge.verde  { background: var(--verde-exito); }
+        .badge.dark   { background: var(--negro); }
+        kbd { background: #eee; border: 1px solid #bbb; border-radius: 3px; padding: 1px 7px; font-size: 0.83rem; font-family: 'Courier New', monospace; }
+        #modal-zoom { display: none; position: fixed; z-index: 9999; inset: 0; background: rgba(0,0,0,0.92); justify-content: center; align-items: center; cursor: zoom-out; }
+        #modal-zoom img { max-width: 92%; max-height: 92%; border: 3px solid white; border-radius: 4px; cursor: zoom-out; }
+        footer { text-align: center; padding: 3rem 1rem; background: var(--negro); color: var(--blanco); margin-top: 2rem; }
+        footer small { opacity: 0.45; font-size: 0.8rem; }
+        @media (max-width: 620px) { .estados-grid { grid-template-columns: 1fr; } .img-row { flex-direction: column; } header h1 { font-size: 1.4rem; } }
+    </style>
+</head>
+<body>
+
+<div id="modal-zoom" onclick="this.style.display='none'">
+    <img id="img-ampliada" src="" alt="Zoom">
+</div>
+
+<header>
+    <h1>Manual: Creación de Requisición (RQ) desde Orden de Servicio</h1>
+    <p>Proceso para generar una RQ en SAMM a partir de una OTT existente</p>
+</header>
+
+<div class="phases-bar">
+    <div class="phase-step f1"><span class="num">1</span>Crear la Requisición (RQ)</div>
+    <div class="phase-arrow">→</div>
+    <div class="phase-step f2"><span class="num">2</span>Referencia de Ítems por Tipo de Servicio</div>
+</div>
+
+<div class="top-notice">
+    <strong>⚠ IMPORTANTE:</strong> Para instalaciones de TV, secadoras con kit, lavavajillas y rack —
+    la RQ debe crearse <strong>en el mismo momento</strong> en que se genera la orden de servicio.
+</div>
+
+
+<!-- ═══════════════════════════
+     SECCIÓN 1: CREAR LA RQ
+═══════════════════════════ -->
+<div class="section-header">
+    <div class="section-title vinotinto">
+        <span class="section-badge">1</span>
+        Sección 1 — Creación de la Requisición (RQ)
+    </div>
+    <div class="section-note">
+        Desde la orden de servicio en SAMM se genera directamente la requisición de los ítems necesarios para el servicio.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card">
+        <h2><span class="step-number">1</span>Ir al Apartado de Órdenes de Servicio</h2>
+        <p>Desde el <strong>menú principal de SAMM</strong>, diríjase al apartado de <span class="highlight">Órdenes de Servicio</span>.</p>
+        <div class="img-wrap">
+            <img src="I 1.png" alt="Menú principal SAMM — Órdenes de Servicio">
+            <figcaption>Menú principal → Órdenes de Servicio</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">2</span>Buscar la Orden</h2>
+        <p>En la nueva página, escriba el número de la orden en el <span class="highlight">recuadro de búsqueda</span> indicado y presione <kbd>Enter</kbd>.</p>
+        <div class="img-wrap">
+            <img src="I 2.png" alt="Recuadro de búsqueda de orden en SAMM">
+            <figcaption>Ingrese el número de orden en el recuadro de búsqueda</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">3</span>Verificar el Estado y Acceder al Botón RQ</h2>
+        <p>Una vez localizada la orden, verifique que se encuentre en uno de los <strong>estados válidos</strong> para crear una RQ:</p>
+
+        <div class="estados-grid">
+            <div class="estado-pill">✅ Programada</div>
+            <div class="estado-pill">✅ Creada</div>
+            <div class="estado-pill">✅ Pendiente Solicitud de Partes</div>
+        </div>
+
+        <p>Si la orden está en alguno de estos estados, el botón <span class="badge">RQ</span> estará <strong>habilitado</strong>. Haga clic en él para continuar.</p>
+        <div class="img-wrap">
+            <img src="I 3.png" alt="Botón RQ habilitado en la orden">
+            <figcaption>Botón RQ habilitado — la orden está en estado correcto</figcaption>
+        </div>
+        <div class="alert-box">
+            <strong>⚠ Si el botón RQ no aparece habilitado</strong>, verifique que el estado de la orden sea uno de los tres indicados arriba. Un estado diferente bloqueará la creación de la RQ.
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">4</span>Seleccionar Requisición y Aceptar</h2>
+        <p>Al entrar, seleccione la opción <span class="highlight">Requisición</span> del menú desplegable y haga clic en <strong>Aceptar</strong>. El sistema asignará automáticamente un <strong>número de RQ</strong> al caso — anótelo.</p>
+        <div class="img-wrap">
+            <img src="I 4.png" alt="Seleccionar Requisición del menú y Aceptar">
+            <figcaption>Seleccionar Requisición → Aceptar → se asigna el número de RQ</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">5</span>Acceder al Botón de Ítems</h2>
+        <p>Dentro de la requisición, haga clic en el botón <span class="badge">Ítems</span> para agregar los repuestos o accesorios necesarios.</p>
+        <div class="img-wrap">
+            <img src="I 5.png" alt="Botón Ítems dentro de la RQ">
+            <figcaption>Clic en Ítems para agregar los elementos de la requisición</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">6</span>Agregar el Ítem por Número de Parte</h2>
+        <p>En el campo <span class="highlight">Catálogo</span>, escriba el <strong>número de parte</strong> del ítem a solicitar y presione <kbd>Enter</kbd>. Consulte la tabla de referencia de la <strong>Sección 2</strong> para saber qué número de parte corresponde a cada tipo de servicio.</p>
+        <div class="img-wrap">
+            <img src="I 6.png" alt="Campo Catálogo — ingreso del número de parte">
+            <figcaption>Campo Catálogo → ingrese el número de parte → Enter</figcaption>
+        </div>
+        <p>Tras presionar <kbd>Enter</kbd>, el ítem aparecerá agregado a la lista de la requisición.</p>
+        <div class="img-wrap">
+            <img src="I 7.png" alt="Ítem agregado correctamente a la RQ">
+            <figcaption>El ítem queda agregado a la requisición</figcaption>
+        </div>
+    </div>
+
+    <div class="step-card">
+        <h2><span class="step-number">7</span>Guardar y Cambiar el Estado</h2>
+        <p>Haga clic en <span class="badge dark">Guardar y Volver</span> para regresar a la vista principal de la requisición.</p>
+        <p>Luego cambie el estado de la RQ a <span class="highlight">"Repuestos han sido solicitados"</span> para que quede correctamente registrada en el sistema.</p>
+        <div class="img-row">
+            <div class="img-wrap">
+                <img src="I 8.png" alt="Cambio de estado de la RQ">
+                <figcaption>Botón para cambiar el estado de la RQ</figcaption>
+            </div>
+            <div class="img-wrap">
+                <img src="I 9.png" alt="Estado: Repuestos han sido solicitados">
+                <figcaption>Seleccionar "Repuestos han sido solicitados"</figcaption>
+            </div>
+        </div>
+        <div class="success-box">✅ REQUISICIÓN CREADA Y ESTADO ACTUALIZADO CORRECTAMENTE</div>
+    </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════
+     SECCIÓN 2: TABLA DE REFERENCIA
+═══════════════════════════════════════ -->
+<div class="section-header">
+    <div class="section-title morado">
+        <span class="section-badge">2</span>
+        Sección 2 — Referencia de Ítems por Tipo de Servicio
+    </div>
+    <div class="section-note morado">
+        Use esta tabla para identificar qué ítem debe agregar en la RQ según el tipo de instalación.
+        La RQ debe crearse <strong>en el mismo momento</strong> en que se genera la orden de servicio.
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="step-card morado">
+        <h2>Tabla de Ítems Requeridos por Servicio</h2>
+
+        <div class="warning-box">
+            <strong>⚠ Servicios que requieren RQ inmediata al crear la orden:</strong>
+            instalaciones de TV (dentro y fuera de garantía), secadoras con kit (dentro y fuera de garantía),
+            con rack o sin rack, kit de lavavajillas (OOW y garantía) y ducto adicional.
+        </div>
+
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Tipo de Servicio</th>
+                    <th>Ítem a solicitar en la RQ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="cat-row"><td colspan="2">📺 Soportes para TV</td></tr>
+                <tr>
+                    <td class="tipo">Soporte 55 – 75"</td>
+                    <td class="item-val">SOPORTE GIF – GP</td>
+                </tr>
+                <tr>
+                    <td class="tipo">Soporte 75 – 100"</td>
+                    <td class="item-val">SOPORTE YF – D900</td>
+                </tr>
+
+                <tr class="cat-row"><td colspan="2">🌀 Secadoras con Kit</td></tr>
+                <tr>
+                    <td class="tipo">Instalación Kit Garantía</td>
+                    <td class="item-val">KIT SECADORA LG</td>
+                </tr>
+                <tr>
+                    <td class="tipo">Instalación Kit OOW</td>
+                    <td class="item-val">KIT SECADORA</td>
+                </tr>
+
+                <tr class="cat-row"><td colspan="2">🍽️ Lavavajillas</td></tr>
+                <tr>
+                    <td class="tipo">Lavavajillas OOW</td>
+                    <td class="item-val">KIT LAVAVAJILLAS ML</td>
+                </tr>
+                <tr>
+                    <td class="tipo">Lavavajillas Garantía</td>
+                    <td class="item-val">Kit lavavajillas LG</td>
+                </tr>
+
+                <tr class="cat-row"><td colspan="2">🔧 Accesorios Adicionales</td></tr>
+                <tr>
+                    <td class="tipo">Ducto Adicional</td>
+                    <td class="item-val">DUCTO SEMIRIGIDO</td>
+                </tr>
+                <tr>
+                    <td class="tipo">Rack Garantía y OOW</td>
+                    <td class="item-val">AGF30609822</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="alert-box">
+            <strong>⚠ Aclaración sobre el Rack:</strong>
+            <ul style="margin: 0.5rem 0 0; padding-left: 1.3rem;">
+                <li style="margin-bottom:0.4rem;">
+                    <strong>Dentro de garantía:</strong> el rack siempre se carga en la
+                    <strong>orden de la lavadora</strong>.
+                </li>
+                <li>
+                    <strong>Fuera de garantía (OOW):</strong> puede cargarse en la orden de la
+                    <strong>lavadora</strong> o en la orden de la <strong>secadora</strong>,
+                    según cuál esté disponible en ese momento.
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <strong>💡 ¿Cómo usar esta tabla?</strong> Identifique el tipo de servicio de la orden,
+            busque la fila correspondiente y use el valor de la columna
+            <strong>"Ítem a solicitar"</strong> como número de parte en el campo
+            <strong>Catálogo</strong> de la RQ (Paso 6).
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p>&copy; 2026 ELECTRO SERVICE S.A. — Manual Operativo SAMM Web</p>
+    <small>Documento de uso interno confidencial</small>
+</footer>
+
+<script>
+    const modal   = document.getElementById('modal-zoom');
+    const imgZoom = document.getElementById('img-ampliada');
+    document.querySelectorAll('.img-wrap img').forEach(img => {
+        img.addEventListener('click', () => {
+            imgZoom.src = img.src;
+            modal.style.display = 'flex';
+        });
+    });
+</script>
+
+</body>
+</html>
